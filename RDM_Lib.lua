@@ -69,8 +69,7 @@ spell_maps = {
     ['Fire Maneuver']='Maneuver',['Ice Maneuver']='Maneuver',['Wind Maneuver']='Maneuver',['Earth Maneuver']='Maneuver',['Thunder Maneuver']='Maneuver',['Water Maneuver']='Maneuver',['Light Maneuver']='Maneuver',['Dark Maneuver']='Maneuver',
     ['Enstone']='Enspell',['Enwater']='Enspell',['Enaero']='Enspell',['Enfire']='Enspell',['Enblizzard']='Enspell',['Enthunder']='Enspell',
 	['Gain-AGI']='Gain',['Gain-CHR']='Gain',['Gain-DEX']='Gain',['Gain-INT']='Gain',['Gain-MND']='Gain',['Gain-STR']='Gain',['Gain-VIT']='Gain',
-	
-	-- Blue Magic
+
 }
 
 enfeeb_maps = {
@@ -93,9 +92,21 @@ enfeeb_maps = {
     ['Distract']='skillmndpot', ['Distract II']='skillmndpot', ['Distract III']='skillmndpot', 
     ['Poison']='skillpot', ['Poison II']='skillpot', ['Poisonga']='skillpot',
 	
-	-- Blue Magic
 }
 
+blue_maps = {
+	['Pollen']='heal',['Sandspin']='nuke',['Foot Kick']='phys',['Sprout Smack']='phys',['Wild Oats']='phys',['Power Attack']='phys',['Cocoon']='buff',
+	['Metallic Body']='buff',['Queasyshroom']='phys',['Battle Dance']='phys',['Feather Storm']='phys',['Head Butt']='phys',['Healing Breeze']='heal',
+	['Sheep Song']='enm',['Helldive']='phys',['Cursed Sphere']='nuke',['Blastbomb']='nuke',['Bludgeon']='phys',['Blood Drain']='macc',['Claw Cyclone']='phys',
+	['Poison Breath']='nuke',['Soporific']='macc',['Screwdriver']='phys',['Bomb Toss']='nuke',['Grand Slam']='phys',['Wild Carrot']='heal',['Chaotic Eye']='macc',
+	['Sound Blast']='macc',['Death Ray']='nuke',['Smite of Rage']='phys',['Digest']='macc',['Pinecone Bomb']='phys',['Blank Gaze']='enm',['Jet Stream']='phys',
+	['Uppercut']='phys',['Mysterious Light']='nuke',['Terror Touch']='phys',['MP Drainkiss']='macc',['Venom Shell']='macc',['Stinking Gas']='macc',
+	['Blitzstrahl']='nuke',['Mandibular Bite']='phys',['Awful Eye']='macc',['Geist Wall']='enm',['Magnetite Cloud']='nuke',['Jettatura']='enm',['Blood Saber']='macc',
+	['Refueling']='buff',['Sickle Slash']='phys',['Ice Break']='nuke',['Self-Destruct']='nuke',['Frightful Roar']='macc',['Cold Wave']='macc',
+	['Filamented Hold']='macc',['Hecatomb Wave']='nuke',['Radiant Breath']='nuke',['Feather Barrier']='buff',['Light of Penance']='macc',['Flying Hip Press']='nuke',
+	['Magic Fruit']='heal',
+	
+}
 
 -- Set Macros for your SCH's macro page, book.
 function set_macros(sheet,book)
@@ -478,6 +489,7 @@ Buff =
         ['En-Day'] = false,
         ['Enspell'] = false,
 		['Flurry'] = false,
+		['Burst Affinity'] = false,
     }
     
 -- Get a spell mapping for the spell.
@@ -488,6 +500,10 @@ end
 function get_enfeeb_map(spell)
     return enfeeb_maps[spell.name]
 end
+-- Get a spell mapping for blue magic.
+function get_blue_map(spell)
+	return blue_maps[spell.name]
+end
 -- Reset the state vars tracking strategems.
 function update_active_ja(name, gain)
     Buff['Composure'] = buffactive['Composure'] or false
@@ -496,6 +512,7 @@ function update_active_ja(name, gain)
     Buff['En-Day'] = buffactive[nukes.enspell[world.day_element]] or false
     Buff['Enspell'] = buffactive[nukes.enspell['Earth']] or buffactive[nukes.enspell['Water']] or buffactive[nukes.enspell['Air']] or buffactive[nukes.enspell['Fire']] or buffactive[nukes.enspell['Ice']] or buffactive[nukes.enspell['Lightning']] or buffactive[nukes.enspell['Light']] or buffactive[nukes.enspell['Dark']] or false
 	Buff['Flurry'] = buffactive['Flurry'] or false
+	Buff['Burst Affinity'] = buffactive['Burst Affinity'] or false
 end
 
 function buff_refresh(name,buff_details)
@@ -553,7 +570,7 @@ function precast(spell)
     end
 
     -- Moving on to other types of magic
-    if spell.type == 'WhiteMagic' or spell.type == 'BlackMagic' or spell.type == 'Ninjutsu' then
+    if spell.type:contains('Magic') or spell.type == 'Ninjutsu' then
      
         -- Stoneskin Precast
         if spell.name == 'Stoneskin' then
@@ -683,6 +700,18 @@ function midcast(spell)
         if spell.element == world.day_element and spell.skill ~= 'Enhancing Magic' and spellMap ~= 'Helix' then
             equip(sets.midcast.Obi)
         end
+	-- Blue Magic
+	elseif spell.type == 'BlueMagic' then
+		local blueMap = get_blue_map(spell)
+		if blueMap == 'nuke' then
+			if Buff[BurstAffinity] then
+				equip(sets.midcast.blue.nuke.mb)
+			end
+		elseif blueMap == 'heal' and spell.target.type == "SELF" then
+			equip(sets.midcast.blue.heal.me)
+		else
+			equip(sets.midcast.blue[blueMap])
+		end
 	-- Ranged Attacks	
 	elseif spell.action_type == 'Ranged Attack' then
 			equip(sets.midcast.ra)
@@ -857,9 +886,9 @@ function self_command(command)
                     windower.add_to_chat(8,"----- Matching SC Mode is now: "..tostring(matchsc.current)) 
                 end
             end
-        end
+		elseif commandArgs[1]:lower() == 'cast' then
         
-        if commandArgs[1]:lower() == 'scholar' then
+        elseif commandArgs[1]:lower() == 'scholar' then
             handle_strategems(commandArgs)
 
         elseif commandArgs[1]:lower() == 'nuke' then

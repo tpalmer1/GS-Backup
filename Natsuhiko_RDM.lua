@@ -27,7 +27,7 @@
         gs c nuke cycle                 Cycles element type for nuking
         gs c nuke cycledown             Cycles element type for nuking in reverse order    
 	    gs c nuke enspellup             Cycles element type for enspell
-	    gs c nuke enspelldown		Cycles element type for enspell in reverse order 
+	    gs c nuke enspelldown			Cycles element type for enspell in reverse order 
 
         gs c nuke t1                    Cast tier 1 nuke of saved element 
         gs c nuke t2                    Cast tier 2 nuke of saved element 
@@ -207,7 +207,7 @@ function get_sets()
     AF.Feet		=	"Atrophy Boots +2"
 
     --Vitiation
-    RELIC.Head		=	"Viti. Chapeau +2"
+    RELIC.Head		=	"Viti. Chapeau +3"
     RELIC.Body		=	"Viti. Tabard +3"
     RELIC.Hands 	=	"Viti. Gloves +3"
     --RELIC.Legs		=	"Viti. Tights +3"
@@ -218,7 +218,7 @@ function get_sets()
     EMPY.Body		=	"Lethargy Sayon +2"
     EMPY.Hands		=	"Leth. Gantherots +2"
     EMPY.Legs		=	"Leth. Fuseau +2"
-    EMPY.Feet		=	"Leth. Houseaux +2"
+    EMPY.Feet		=	"Leth. Houseaux +3"
 
 	--Ambuscade
 	Ambu = {}
@@ -242,10 +242,10 @@ function get_sets()
     RDMCape.Idle = { name="Sucellos's Cape", augments={'MND+20','Eva.+20 /Mag. Eva.+20','Mag. Evasion+10','Enmity-10','Occ. inc. resist. to stat. ailments+10',}}
     RDMCape.STR = { name="Sucellos's Cape", augments={'STR+20','Accuracy+20 Attack+20','STR=10','Weapon skill damage +10%',}}
     RDMCape.TPSTP = { name="Sucellos's Cape", augments={'DEX+20','Accuracy+20 Attack+20','Accuracy+10','"Store TP"+10',}}
-        --RDMCape.MACC	=	{ name="Sucellos's Cape", augments={'MND+20','Mag. Acc+20 /Mag. Dmg.+20','MND+10','Weapon skill damage +10%',}}
     RDMCape.Crit = { name="Sucellos's Cape", augments={'DEX+20','Accuracy+20 Attack+20','DEX+10','Crit.hit rate+10',}}
 	RDMCape.INTWSD = { name="Sucellos's Cape", augments={'INT+20','Mag. Acc+20 /Mag. Dmg.+20','INT+10','Weapon skill damage +10%',}}
 	RDMCape.MNDFC = { name="Sucellos's Cape", augments={'MND+20','Mag. Acc+20 /Mag. Dmg.+20','MND+10','"Fast Cast"+10',}}
+	RDMCape.Nuke = { name="Sucellos's Cape", augments={'INT+20','Mag. Acc+20 /Mag. Dmg.+20','INT+10','"Mag.Atk.Bns."+10',}}
     -- SETS
      
     sets.me = {}        		-- leave this empty
@@ -361,7 +361,7 @@ function get_sets()
     -- Sword
 
     sets.me["Savage Blade"] = {
-        ammo		=	"Voluspa Tathlum",
+        ammo		=	"Oshasha's Treatise",
         head		=	RELIC.Head,
         body		=	RELIC.Body,
         hands		=	AF.Hands,
@@ -381,7 +381,7 @@ function get_sets()
     sets.me["Death Blossom"] = set_combine(sets.me["Savage Blade"],{})
     
     sets.me["Requiescat"] = {
-        ammo        =   "Voluspa Tathlum",
+        ammo        =   "Oshasha's Treatise",
         head        =   RELIC.Head,
         body        =   RELIC.Body,
         hands       =   Ambu.S.Hands,
@@ -396,7 +396,7 @@ function get_sets()
         back        =   RDMCape.STR,
     }
     sets.me["Chant du Cygne"] = {
-        ammo		=	"Ginsen",
+        ammo		=	"Oshasha's Treatise",
         --head		=	Taeon.Head.TP,
         body		=	EMPY.Body,
         hands		=	"Malignance Gloves",
@@ -411,7 +411,7 @@ function get_sets()
         back		=	RDMCape.Crit,
     }
     sets.me["Sanguine Blade"] = {
-        ammo		=	"Ghastly Tathlum +1",
+		ammo		=	"Oshasha's Treatise",
         head		=	"Pixie Hairpin +1",
         body		=	EMPY.Body,
         hands		=	Ambu.S.Hands,
@@ -427,11 +427,13 @@ function get_sets()
     }
     sets.me["Red Lotus Blade"] = set_combine(sets.me["Sanguine Blade"],{
 		head		=	EMPY.Head,
+		left_ear	=	{ name="Moonshade Earring", augments={'Attack+4','TP Bonus +250',}},
 		left_ring	=	"Jhakri Ring"
 	})
     
     sets.me["Seraph Blade"] = set_combine(sets.me["Sanguine Blade"],{
         head		=	EMPY.Head,
+		left_ear	=	{ name="Moonshade Earring", augments={'Attack+4','TP Bonus +250',}},
 		left_ring	=	"Weatherspoon Ring",
     })
 
@@ -457,7 +459,10 @@ function get_sets()
 
     sets.me["Empyreal Arrow"] = {
 		ammo		=	RangedAmmo.WS,
-		neck		=	"Marked Gorget",
+		neck		=	"Fotia Gorget",
+		waist		=	"Fotia Belt",
+		left_ear	=	{ name="Moonshade Earring", augments={'Attack+4','TP Bonus +250',}},
+		right_ear	=	"Telos Earring",
 
     }
 
@@ -472,7 +477,8 @@ function get_sets()
     sets.aftercast = {}  		-- Leave this empty  
     sets.midcast.nuking = {}		-- leave this empty
     sets.midcast.MB	= {}		-- leave this empty   
-    sets.midcast.enhancing = {} 	-- leave this empty   
+    sets.midcast.enhancing = {} 	-- leave this empty 
+	sets.midcast.blue = {}		-- leave this empty
     ----------
     -- Precast
     ----------
@@ -575,7 +581,8 @@ function get_sets()
         neck        =   "Sibyl Scarf",
 		waist		=	"Eschan Stone",
 		left_ear	=	"Friomisi Earring",
-		right_ear	=	"Malignance Earring"
+		right_ear	=	"Malignance Earring",
+		back		=	RDMCape.Nuke
     
     }
     -- used with toggle, default: F10
@@ -790,7 +797,22 @@ function get_sets()
 	sets.midcast.regen = set_combine(sets.midcast.enhancing.duration, {
 
     })
-
+	---------------
+    -- Blue Magic
+    ---------------
+	sets.midcast.blue.phys = {}
+	sets.midcast.blue.macc = set_combine(sets.midcast.Enfeebling.macc,{})
+	sets.midcast.blue.buff = {}
+	sets.midcast.blue.nuke = {}
+	sets.midcast.blue.nuke.mb ={}
+	sets.midcast.blue.heal = {}
+	sets.midcast.blue.heal.me = {}
+	sets.midcast.blue.enm = {
+		head =	"Halitus Helm",
+		body =	"Emet Harness +1",
+		neck = 	"Unmoving Collar +1",
+		waist =	"Kasiri Belt",
+	}
 	------------------------------------------------------------------------------------------------------
 	-- Ranged sets. -- Pre/Mid for shots
  	------------------------------------------------------------------------------------------------------ 
