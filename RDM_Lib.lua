@@ -180,6 +180,7 @@ hub_options_std = [[ \cs(255, 115, 0)Options: \cr
 hub_job_std = [[ \cs(255, 115, 0)${player_job}: \cr             
 \cs(255, 255, 64)${key_bind_element_cycle} \cs(200, 200, 200)Nuking:\cr ${element_color|\\cs(0, 204, 204)}${toggle_element_cycle|Ice} \cr
 \cs(255, 255, 64)${key_bind_enspell_cycle} \cs(200, 200, 200)Enspell:\cr ${enspell_color|\\cs(0, 204, 204)}${toggle_enspell_cycle|Ice} \cr
+\cs(255, 255, 64)${key_bind_gain_cycle} \cs(200, 200, 200)Gain:\cr ${gain_color|\\cs(0, 204, 204)}${toggle_gain_cycle|Ice} \cr
 ]]
 
 hub_battle_std = [[ \cs(255, 115, 0)Battle: \cr             
@@ -195,7 +196,7 @@ hub_mode_lte = [[ \cs(255, 115, 0) == Modes: \cr              \cs(255, 255, 64)$
 
 hub_options_lte = [[ \cs(255, 115, 0)== Options: \cr              \cs(255, 255, 64)${key_bind_matchsc}\cs(200, 200, 200)Match SC Element:\cr ${player_match_sc}            \cs(255, 255, 64)${key_bind_lock_weapon} \cs(200, 200, 200)Lock Weapon:\cr ${toggle_lock_weapon}            \cs(255, 255, 64)${key_bind_movespeed_lock}\cs(200, 200, 200)Carm Cuisse:\cr ${toggle_movespeed_lock} ]]
 
-hub_job_lte = [[ \cs(255, 115, 0) == ${player_job}: \cr             \cs(255, 255, 64)${key_bind_element_cycle} \cs(200, 200, 200)Nuking:\cr ${element_color|\\cs(0, 204, 204)}${toggle_element_cycle|Ice} \cr             \cs(255, 255, 64)${key_bind_enspell_cycle} \cs(200, 200, 200)Enspell:\cr ${enspell_color|\\cs(0, 204, 204)}${toggle_enspell_cycle|Ice} \cr ]]
+hub_job_lte = [[ \cs(255, 115, 0) == ${player_job}: \cr             \cs(255, 255, 64)${key_bind_element_cycle} \cs(200, 200, 200)Nuking:\cr ${element_color|\\cs(0, 204, 204)}${toggle_element_cycle|Ice} \cr             \cs(255, 255, 64)${key_bind_enspell_cycle} \cs(200, 200, 200)Enspell:\cr ${enspell_color|\\cs(0, 204, 204)}${toggle_enspell_cycle|Ice} \cr             \cs(255, 255, 64)${key_bind_gain_cycle} \cs(200, 200, 200)Gain:\cr ${gain_color|\\cs(0, 204, 204)}${toggle_gain_cycle|Ice} \cr]]
 
 hub_battle_lte = [[ \cs(255, 115, 0) == Battle: \cr             \cs(200, 200, 200)Last SC:\cr ${last_sc_element_color}${last_sc|No SC yet} \cr             \cs(200, 200, 200)Burst Window:\cr ${last_sc_element_color}${burst_window|0} \cr             \cs(200, 200, 200)Magic Burst:\cr ${player_current_mb}  \cr ]]
 
@@ -227,6 +228,7 @@ keybinds_off['key_bind_lock_weapon'] = '       '
 keybinds_off['key_bind_movespeed_lock'] = '        '
 keybinds_off['key_bind_matchsc'] = '        '
 keybinds_off['key_bind_enspell_cycle'] = '       '
+keybinds_off['key_bind_gain_cycle'] = '       '
 
 function validateTextInformation()
 
@@ -243,6 +245,7 @@ function validateTextInformation()
     main_text_hub.player_current_casting = nukeModes.current
     main_text_hub.toggle_element_cycle = elements.current
     main_text_hub.toggle_enspell_cycle = enspellElements.current
+	main_text_hub.toggle_gain_cycle = gainSpells.current
     main_text_hub.player_job = player.job
 
     if last_skillchain ~= nil then
@@ -281,6 +284,7 @@ function validateTextInformation()
     main_text_hub.element_color = Colors[elements.current]
     main_text_hub.enspell_color = Colors[enspellElements.current]
     main_text_hub.sc_element_color = scColor
+	main_text_hub.gain_color = Colors[gainElements[gainSpells.current]]
 end
 
 --Default To Set Up the Text Window
@@ -463,6 +467,9 @@ nukes.enspell = {['Earth']="Enstone", ['Water']="Enwater",  ['Air']="Enaero", ['
 
 elements =  M('Ice', 'Air', 'Earth', 'Lightning', 'Water', 'Fire')
 enspellElements =  M('Ice', 'Air', 'Earth', 'Lightning', 'Water', 'Fire')
+
+gainSpells = M('STR','MND','INT','DEX','VIT','AGI','CHR')
+gainElements = {['STR']="Fire",['MND']="Water",['INT']="Ice",['DEX']="Lightning",['VIT']="Earth",['AGI']="Air",['CHR']="Light"}
 
 oldElement = elements.current
 
@@ -885,8 +892,25 @@ function self_command(command)
                 else
                     windower.add_to_chat(8,"----- Matching SC Mode is now: "..tostring(matchsc.current)) 
                 end
+			elseif commandArgs[2] == 'gainup' then
+				gainSpells:cycle()
+				if use_UI == true then                    
+                    validateTextInformation()
+                else
+                    windower.add_to_chat(8,"----- Gain spell is now: "..tostring(gainSpells.current)) 
+                end
+			elseif commandArgs[2] == 'gaindown' then
+				gainSpells:cycleback()
+				if use_UI == true then                    
+                    validateTextInformation()
+                else
+                    windower.add_to_chat(8,"----- Gain spell is now: "..tostring(gainSpells.current)) 
+                end
             end
 		elseif commandArgs[1]:lower() == 'cast' then
+			if commandArgs[2] == 'gain' then
+				send_command('@input /ma "Gain-'..gainSpells.current..'"')
+			end
         
         elseif commandArgs[1]:lower() == 'scholar' then
             handle_strategems(commandArgs)
