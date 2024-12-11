@@ -85,7 +85,7 @@ enfeeb_maps = {
     ['Break']='macc', 
     ['Bind']='macc', 
     ['Blind']='intpot', ['Blind II']='intpot', 
-    ['Gravity']='macc', ['Gravity II']='potency',
+    ['Gravity']='potency', ['Gravity II']='potency',
     -- We leave Fazzle and FrazzleII as pure macc to help land it in cases its a high resist. 
     -- This lets us follow up with a high potency Frazzle3 
     ['Frazzle']='macc', ['Frazzle II']='macc', ['Frazzle III']='skillmndpot', 
@@ -121,7 +121,7 @@ hud_padding = 10
 
 pName = player.name
 -- Saying hello
-windower.add_to_chat(8,'----- Welcome back to your RDM.lua, '..pName..' -----')
+windower.add_to_chat(8,'----- Welcome back to your COR.lua, '..pName..' -----')
 
 --------------------------------------------------------------------------------------------------------------
 -- HUD STUFF
@@ -165,40 +165,46 @@ time_start = 0
 hub_mode_std = [[\cs(255, 115, 0)Modes: \cr              
 \cs(255, 255, 64)${key_bind_idle} \cs(200, 200, 200)Idle:\cr \cs(125,125,255)${player_current_idle|Refresh}
 \cs(255, 255, 64)${key_bind_melee} \cs(200, 200, 200)Melee:\cr \cs(125,125,255)${player_current_melee|Refresh}
+\cs(255, 255, 64)${key_bind_ranged} \cs(200, 200, 200)Ranged:\cr \cs(125,125,255)${player_current_ranged|Normal}
 \cs(255, 255, 64)${key_bind_mainweapon} \cs(200, 200, 200)Main Weapon:\cr \cs(125,125,255)${player_current_mainweapon|Crocea Mors}
 \cs(255, 255, 64)${key_bind_subweapon} \cs(200, 200, 200)Sub Weapon:\cr \cs(125,125,255)${player_current_subweapon|Ammurapi Shield}
 \cs(255, 255, 64)${key_bind_rangeweapon} \cs(200, 200, 200)Range Weapon:\cr \cs(125,125,255)${player_current_range|None}
-\cs(255, 255, 64)${key_bind_casting} \cs(200, 200, 200)Nuking:\cr \cs(125,125,255)${player_current_casting|Normal}
 ]]
 
 hub_options_std = [[ \cs(255, 115, 0)Options: \cr         
-\cs(255, 255, 64)${key_bind_matchsc}\cs(200, 200, 200)Match SC Element:\cr ${player_match_sc}
 \cs(255, 255, 64)${key_bind_lock_weapon} \cs(200, 200, 200)Lock Weapon:\cr ${toggle_lock_weapon}
 \cs(255, 255, 64)${key_bind_movespeed_lock}\cs(200, 200, 200)Carm Cuisses:\cr ${toggle_movespeed_lock}
 ]]
 
 hub_job_std = [[ \cs(255, 115, 0)${player_job}: \cr             
-\cs(255, 255, 64)${key_bind_element_cycle} \cs(200, 200, 200)Nuking:\cr ${element_color|\\cs(0, 204, 204)}${toggle_element_cycle|Ice} \cr
-\cs(255, 255, 64)${key_bind_enspell_cycle} \cs(200, 200, 200)Enspell:\cr ${enspell_color|\\cs(0, 204, 204)}${toggle_enspell_cycle|Ice} \cr
-\cs(255, 255, 64)${key_bind_gain_cycle} \cs(200, 200, 200)Gain:\cr ${gain_color|\\cs(0, 204, 204)}${toggle_gain_cycle|Ice} \cr
+\cs(255, 255, 64)${key_bind_rollone_cycle} \cs(200, 200, 200)Roll One:\cr ${toggle_rollone_cycle} \cr
+\cs(255, 255, 64)${key_bind_rolltwo_cycle} \cs(200, 200, 200)Roll Two:\cr ${toggle_rolltwo_cycle} \cr
 ]]
 
 hub_battle_std = [[ \cs(255, 115, 0)Battle: \cr             
-        \cs(200, 200, 200)Last SC:\cr ${last_sc_element_color}${last_sc|No SC yet} \cr           
-        \cs(200, 200, 200)Burst Window:\cr ${last_sc_element_color}${burst_window|0} \cr
-        \cs(200, 200, 200)Magic Burst:\cr ${player_current_mb}  \cr        
+		\cs(255, 255, 64)${key_bind_qd_mode}\cs(200, 200, 200)QD Mode:\cr ${toggle_qd_mode} \cr
+		\cs(255, 255, 64)${key_bind_ele_qd}\cs(200, 200, 200)QD Element:\cr ${qd_color}${toggle_qd_ele} \cr                  
 ]]
+
+
+--hub_battle_std = [[ \cs(255, 115, 0)Battle: \cr             
+--        \cs(200, 200, 200)Last SC:\cr ${last_sc_element_color}${last_sc|No SC yet} \cr           
+--        \cs(200, 200, 200)Burst Window:\cr ${last_sc_element_color}${burst_window|0} \cr
+--        \cs(200, 200, 200)Magic Burst:\cr ${player_current_mb}  \cr        
+--]]
 
 -- LITE Mode
 --hub_mode_lte = [[ \cs(255, 115, 0) == Modes: \cr              \cs(255, 255, 64)${key_bind_idle} \cs(200, 200, 200)Idle:\cr \cs(125,125,255)${player_current_idle|Refresh}              \cs(255, 255, 64)${key_bind_melee} \cs(200, 200, 200)Melee:\cr \cs(125,125,255)${player_current_melee|Refresh}              \cs(255, 255, 64)${key_bind_mainweapon} \cs(200, 200, 200)Main Weapon:\cr \cs(125,125,255)${player_current_mainweapon|Crocea Mors}              \cs(255, 255, 64)${key_bind_subweapon} \cs(200, 200, 200)Sub Weapon:\cr \cs(125,125,255)${player_current_subweapon|Ammurapi Shield}            \cs(255, 255, 64)${key_bind_casting} \cs(200, 200, 200)Nuking:\cr \cs(125,125,255)${player_current_casting|Normal} ]]
-hub_mode_lte = [[ \cs(255, 115, 0) == Modes: \cr              \cs(255, 255, 64)${key_bind_idle} \cs(200, 200, 200)Idle:\cr \cs(125,125,255)${player_current_idle|Refresh}              \cs(255, 255, 64)${key_bind_melee} \cs(200, 200, 200)Melee:\cr \cs(125,125,255)${player_current_melee|Refresh}              \cs(255, 255, 64)${key_bind_mainweapon} \cs(200, 200, 200)Main / Sub Weapon:\cr \cs(125,125,255)${player_current_mainweapon|Crocea Mors} / ${player_current_subweapon|Ammurapi Shield}            \cs(255, 255, 64)${key_bind_rangeweapon} \cs(200, 200, 200)Range Weapon:\cr \cs(125,125,255)${player_current_range|None}         \cs(255, 255, 64)${key_bind_casting} \cs(200, 200, 200)Nuking:\cr \cs(125,125,255)${player_current_casting|Normal} ]]
+--hub_mode_lte = [[ \cs(255, 115, 0) == Modes: \cr              \cs(255, 255, 64)${key_bind_idle} \cs(200, 200, 200)Idle:\cr \cs(125,125,255)${player_current_idle|Refresh}              \cs(255, 255, 64)${key_bind_melee} \cs(200, 200, 200)Melee:\cr \cs(125,125,255)${player_current_melee|Refresh}              \cs(255, 255, 64)${key_bind_mainweapon} \cs(200, 200, 200)Main / Sub Weapon:\cr \cs(125,125,255)${player_current_mainweapon|Crocea Mors} / ${player_current_subweapon|Ammurapi Shield}            \cs(255, 255, 64)${key_bind_rangeweapon} \cs(200, 200, 200)Range Weapon:\cr \cs(125,125,255)${player_current_range|None}         \cs(255, 255, 64)${key_bind_casting} \cs(200, 200, 200)Nuking:\cr \cs(125,125,255)${player_current_casting|Normal} ]]
+hub_mode_lte = [[ \cs(255, 115, 0) == Modes: \cr              \cs(255, 255, 64)${key_bind_idle} \cs(200, 200, 200)Idle:\cr \cs(125,125,255)${player_current_idle|Refresh}              \cs(255, 255, 64)${key_bind_melee} \cs(200, 200, 200)Melee:\cr \cs(125,125,255)${player_current_melee|Normal}              \cs(255, 255, 64)${key_bind_ranged} \cs(200, 200, 200)Ranged:\cr \cs(125,125,255)${player_current_ranged|Normal}              \cs(255, 255, 64)${key_bind_mainweapon} \cs(200, 200, 200)Main / Sub Weapon:\cr \cs(125,125,255)${player_current_mainweapon|Crocea Mors} / ${player_current_subweapon|Ammurapi Shield}            \cs(255, 255, 64)${key_bind_rangeweapon} \cs(200, 200, 200)Range Weapon:\cr \cs(125,125,255)${player_current_range|None} ]]
 
+hub_options_lte = [[ \cs(255, 115, 0)== Options: \cr             \cs(255, 255, 64)${key_bind_lock_weapon} \cs(200, 200, 200)Lock Weapon:\cr ${toggle_lock_weapon}            \cs(255, 255, 64)${key_bind_movespeed_lock}\cs(200, 200, 200)Carm Cuisses:\cr ${toggle_movespeed_lock} ]]
 
-hub_options_lte = [[ \cs(255, 115, 0)== Options: \cr              \cs(255, 255, 64)${key_bind_matchsc}\cs(200, 200, 200)Match SC Element:\cr ${player_match_sc}            \cs(255, 255, 64)${key_bind_lock_weapon} \cs(200, 200, 200)Lock Weapon:\cr ${toggle_lock_weapon}            \cs(255, 255, 64)${key_bind_movespeed_lock}\cs(200, 200, 200)Carm Cuisse:\cr ${toggle_movespeed_lock} ]]
+hub_job_lte = [[ \cs(255, 115, 0) == ${player_job}: \cr             \cs(255, 255, 64)${key_bind_rollone_cycle} \cs(200, 200, 200)Roll One:\cr ${toggle_rollone_cycle}             \cs(255, 255, 64)${key_bind_rolltwo_cycle} \cs(200, 200, 200)Roll Two:\cr ${toggle_rolltwo_cycle} ]]
+--hub_job_lte = [[ \cs(255, 115, 0) == ${player_job}: \cr             \cs(255, 255, 64)${key_bind_element_cycle} \cs(200, 200, 200)Nuking:\cr ${element_color|\\cs(0, 204, 204)}${toggle_element_cycle|Ice} \cr             \cs(255, 255, 64)${key_bind_enspell_cycle} \cs(200, 200, 200)Enspell:\cr ${enspell_color|\\cs(0, 204, 204)}${toggle_enspell_cycle|Ice} \cr             \cs(255, 255, 64)${key_bind_gain_cycle} \cs(200, 200, 200)Gain:\cr ${gain_color|\\cs(0, 204, 204)}${toggle_gain_cycle|Ice} \cr]]
 
-hub_job_lte = [[ \cs(255, 115, 0) == ${player_job}: \cr             \cs(255, 255, 64)${key_bind_element_cycle} \cs(200, 200, 200)Nuking:\cr ${element_color|\\cs(0, 204, 204)}${toggle_element_cycle|Ice} \cr             \cs(255, 255, 64)${key_bind_enspell_cycle} \cs(200, 200, 200)Enspell:\cr ${enspell_color|\\cs(0, 204, 204)}${toggle_enspell_cycle|Ice} \cr             \cs(255, 255, 64)${key_bind_gain_cycle} \cs(200, 200, 200)Gain:\cr ${gain_color|\\cs(0, 204, 204)}${toggle_gain_cycle|Ice} \cr]]
-
-hub_battle_lte = [[ \cs(255, 115, 0) == Battle: \cr             \cs(200, 200, 200)Last SC:\cr ${last_sc_element_color}${last_sc|No SC yet} \cr             \cs(200, 200, 200)Burst Window:\cr ${last_sc_element_color}${burst_window|0} \cr             \cs(200, 200, 200)Magic Burst:\cr ${player_current_mb}  \cr ]]
+hub_battle_lte = [[ \cs(255, 115, 0)Battle: \cr          \cs(255, 255, 64)${key_bind_qd_mode}\cs(200, 200, 200)QD Mode:\cr ${toggle_qd_mode} \cr			\cs(255, 255, 64)${key_bind_ele_qd}\cs(200, 200, 200)QD Element:\cr ${qd_color}${toggle_qd_ele} \cr ]]
+--hub_battle_lte = [[ \cs(255, 115, 0) == Battle: \cr             \cs(200, 200, 200)Last SC:\cr ${last_sc_element_color}${last_sc|No SC yet} \cr             \cs(200, 200, 200)Burst Window:\cr ${last_sc_element_color}${burst_window|0} \cr             \cs(200, 200, 200)Magic Burst:\cr ${player_current_mb}  \cr ]]
 
 
 -- init style
@@ -214,6 +220,7 @@ hub_battle = hub_battle_std
 keybinds_off = {}
 keybinds_off['key_bind_idle'] = '       '
 keybinds_off['key_bind_melee'] = '       '
+keybinds_off['key_bind_ranged'] = '       '
 keybinds_off['key_bind_casting'] = '       '
 keybinds_off['key_bind_mburst'] = '       '
 keybinds_on['key_bind_mburst'] = '       '
@@ -221,6 +228,10 @@ keybinds_off['key_bind_mainweapon'] = '       '
 keybinds_off['key_bind_subweapon'] = '       '
 keybinds_off['key_bind_rangeweapon'] = '       '
 keybinds_off['key_bind_movespeed_lock'] = '        '
+keybinds_off['key_bind_rollone_cycle'] = '        '
+keybinds_off['key_bind_rolltwo_cycle'] = '        '
+keybinds_off['key_bind_qd_mode'] = '        '
+keybinds_off['key_bind_ele_qd'] = '        '
 
 keybinds_off['key_bind_element_cycle'] = '       '
 keybinds_off['key_bind_sc_level'] = '       '
@@ -235,13 +246,17 @@ function validateTextInformation()
     --Mode Information
     main_text_hub.player_current_idle = idleModes.current
     main_text_hub.player_current_melee = meleeModes.current
+	main_text_hub.player_current_ranged = rangedModes.current
     main_text_hub.player_current_mainweapon = mainWeapon.current
     main_text_hub.player_current_subweapon = subWeapon.current
-	if rangeWeapon.value == "" then
-		main_text_hub.player_current_range = "None"
-	else
-		main_text_hub.player_current_range = rangeWeapon.current
-	end
+	main_text_hub.player_current_range = rangeWeapon.current
+	
+	main_text_hub.toggle_rollone_cycle = RollOne.current
+	main_text_hub.toggle_rolltwo_cycle = RollTwo.current
+	main_text_hub.toggle_qd_mode = QDMode.current
+	main_text_hub.toggle_qd_ele = EleQDMode.current
+	
+	
     main_text_hub.player_current_casting = nukeModes.current
     main_text_hub.toggle_element_cycle = elements.current
     main_text_hub.toggle_enspell_cycle = enspellElements.current
@@ -281,6 +296,7 @@ function validateTextInformation()
     else 
         texts.update(main_text_hub, keybinds_off)
     end
+	main_text_hub.qd_color = Colors[EleQDMode.current]
     main_text_hub.element_color = Colors[elements.current]
     main_text_hub.enspell_color = Colors[enspellElements.current]
     main_text_hub.sc_element_color = scColor
@@ -471,6 +487,7 @@ enspellElements =  M('Ice', 'Air', 'Earth', 'Lightning', 'Water', 'Fire')
 gainSpells = M('STR','MND','INT','DEX','VIT','AGI','CHR')
 gainElements = {['STR']="Fire",['MND']="Water",['INT']="Ice",['DEX']="Lightning",['VIT']="Earth",['AGI']="Air",['CHR']="Light"}
 
+quickDraw = {['Ice']="Ice Shot", ['Air']="Wind Shot", ['Earth']="Earth Shot", ['Lightning']="Thunder Shot", ['Water']="Water Shot", ['Fire']="Fire Shot"}
 oldElement = elements.current
 
 scTier2 = M(false)
@@ -495,7 +512,8 @@ Buff =
         ['En-Weather'] = false,
         ['En-Day'] = false,
         ['Enspell'] = false,
-		['Flurry'] = false,
+		['Triple Shot'] = false,
+		['Flurry'] = 0,
 		['Burst Affinity'] = false,
     }
     
@@ -518,7 +536,7 @@ function update_active_ja(name, gain)
     Buff['En-Weather'] = buffactive[nukes.enspell[world.weather_element]] or false
     Buff['En-Day'] = buffactive[nukes.enspell[world.day_element]] or false
     Buff['Enspell'] = buffactive[nukes.enspell['Earth']] or buffactive[nukes.enspell['Water']] or buffactive[nukes.enspell['Air']] or buffactive[nukes.enspell['Fire']] or buffactive[nukes.enspell['Ice']] or buffactive[nukes.enspell['Lightning']] or buffactive[nukes.enspell['Light']] or buffactive[nukes.enspell['Dark']] or false
-	Buff['Flurry'] = buffactive['Flurry'] or false
+	Buff['Triple Shot'] = buffactive['Triple Shot'] or false
 	Buff['Burst Affinity'] = buffactive['Burst Affinity'] or false
 end
 
@@ -531,7 +549,7 @@ function buff_refresh(name,buff_details)
 end
 
 function sub_job_change(new,old)
-	send_command('wait 2;input /lockstyleset 1')
+	send_command('wait 2;input /lockstyleset 6')
 end
 
 
@@ -540,6 +558,13 @@ function buff_change(name,gain,buff_details)
     update_active_ja()
     if use_UI == true then
         validateTextInformation()
+    end
+	-- Update Flurry
+	if S{'flurry'}:contains(name:lower()) then
+        if not gain then
+            Buff['Flurry'] = 0
+            add_to_chat(122, "Flurry status cleared.")
+        end
     end
 end
  
@@ -570,12 +595,17 @@ function precast(spell)
         return
     end
 	
-    -- Auto downgrade Phalanx II to Pahalanx I when casting on self, saves macro space so you can set your phalanx macro to cast phalanx2 on <stpt>
-    if spell.target.type == 'SELF' and spell.name == "Phalanx II" then
-        cancel_spell()
-        send_command('input /ma "Phalanx" <me>')  
-    end
-
+	if spell.type == "CorsairRoll" or spell.english == "Double-Up" then
+		equip(sets.precast.roll)
+	end
+	
+	if spell.type == "CorsairShot" then
+		if spell.english == "Light Shot" or spell.english == "Dark Shot" then
+			equip(sets.precast.qd.macc)
+		else
+			equip(sets.precast.qd[QDMode.current])
+		end
+	end
     -- Moving on to other types of magic
     if spell.type:contains('Magic') or spell.type == 'Ninjutsu' then
      
@@ -611,8 +641,8 @@ function precast(spell)
         end
     end
 	if spell.action_type == 'Ranged Attack' then
-		if Buff['Flurry'] then
-			equip(sets.precast.ra.flurry)
+		if Buff['Flurry'] > 0 then
+			equip(sets.precast.ra.flurry[Buff['Flurry']])
 		else
 			equip(sets.precast.ra.normal)
 		end
@@ -672,12 +702,6 @@ function midcast(spell)
             equip(sets.midcast.enhancing.duration) -- fall back to duration if not specified above 
         end
 
-        -- Casting on others, then we use composure bonus set
-        if Buff['Composure'] then 
-            if  spell.target.type ~= 'SELF' and spell.target.type == 'PLAYER' then
-                equip(sets.midcast.enhancing.composure)
-            end
-        end
 
     -- Enfeebling
     elseif spell.skill == 'Enfeebling Magic' then
@@ -721,8 +745,13 @@ function midcast(spell)
 		end
 	-- Ranged Attacks	
 	elseif spell.action_type == 'Ranged Attack' then
-			equip(sets.midcast.ra)
-    
+			if Buff['Triple Shot'] then
+				equip(sets.midcast.ra[rangedModes.current],sets.midcast.ra.ts)
+			elseif rangeWeapon.current == "Armageddon" and buffactive["Aftermath"] then
+				equip(sets.midcast.ra[rangedModes.current],sets.midcast.ra.crit)
+			else
+				equip(sets.midcast.ra[rangedModes.current])
+    		end
     -- Fail safe
     elseif spell.type ~= "WeaponSkill" then
         equip(sets.midcast.casting)
@@ -740,7 +769,7 @@ function midcast(spell)
         equip(sets.me[spell.name])
 
         -- Sanguine BBlade belt optim
-        if spell.name == 'Sanguine Blade' or spell.name == 'Aeolian Edge' then
+        if spell.name == 'Sanguine Blade' or spell.name == 'Aeolian Edge' or spell.name == 'Leaden Salute' or spell.name == 'Wildfire' then
             -- Dark day and dark weather
             if spell.element == world.day_element and spell.element == world.weather_element then
                 equip(sets.midcast.Obi)
@@ -770,9 +799,6 @@ function idle()
         else
             equip(sets.me.melee[meleeModes.value..'dw'])
         end
-        if mainWeapon.current == "Crocea Mors" or "Vitiation Sword" then
-            --EnspellCheck()
-        end
     else
         equip(sets.me.idle[idleModes.value])
         -- Checks MP for Fucho-no-Obi
@@ -781,9 +807,6 @@ function idle()
         end       
     end
     equip({main = mainWeapon.current, sub = subWeapon.current, range = rangeWeapon.current})
-    if rangeWeapon.value ~= "" then
-		equip({ammo=RangedAmmo.TP})
-    end
 end
  
 function EnspellCheck()
@@ -878,38 +901,71 @@ function self_command(command)
                         windower.add_to_chat(4,"----- Range Weapons set now: "..tostring(rangeWeapon.value))
                     end
                 end
-            elseif commandArgs[2] == 'nukemode' then
-                nukeModes:cycle()               
+            elseif commandArgs[2] == 'rolloneup' then
+                RollOne:cycle()               
                 if use_UI == true then                    
                     validateTextInformation()
                 else
-                    windower.add_to_chat(8,"----- Nuking Mode is now: "..tostring(nukeModes.current)) 
+                    windower.add_to_chat(8,"----- Roll One is now: "..tostring(RollOne.current)) 
                 end   
-            elseif commandArgs[2] == 'matchsc' then
-                matchsc:toggle()               
+            elseif commandArgs[2] == 'rollonedown' then
+                RollOne:cycleback()               
                 if use_UI == true then                    
                     validateTextInformation()
                 else
-                    windower.add_to_chat(8,"----- Matching SC Mode is now: "..tostring(matchsc.current)) 
+                    windower.add_to_chat(8,"----- Roll One is now: "..tostring(RollOne.current)) 
                 end
-			elseif commandArgs[2] == 'gainup' then
-				gainSpells:cycle()
+			elseif commandArgs[2] == 'rolltwoup' then
+				RollTwo:cycle()
 				if use_UI == true then                    
                     validateTextInformation()
                 else
-                    windower.add_to_chat(8,"----- Gain spell is now: "..tostring(gainSpells.current)) 
+                    windower.add_to_chat(8,"----- Roll Two is now: "..tostring(RollTwo.current)) 
                 end
-			elseif commandArgs[2] == 'gaindown' then
-				gainSpells:cycleback()
+			elseif commandArgs[2] == 'rolltwodown' then
+				RollTwo:cycleback()
 				if use_UI == true then                    
                     validateTextInformation()
                 else
-                    windower.add_to_chat(8,"----- Gain spell is now: "..tostring(gainSpells.current)) 
+                    windower.add_to_chat(8,"----- Roll Two is now: "..tostring(RollTwo.current)) 
+                end
+			
+			elseif commandArgs[2] == 'qdmodeup' then
+				QDMode:cycle()
+				if use_UI == true then                    
+                    validateTextInformation()
+                else
+                    windower.add_to_chat(8,"----- QD mode is now: "..tostring(RollTwo.current)) 
+                end
+			elseif commandArgs[2] == 'qdmodedown' then
+				QDMode:cycleback()
+				if use_UI == true then                    
+                    validateTextInformation()
+                else
+                    windower.add_to_chat(8,"----- QD mode is now: "..tostring(RollTwo.current)) 
+                end
+			elseif commandArgs[2] == 'eleqdup' then
+				EleQDMode:cycle()
+				if use_UI == true then                    
+                    validateTextInformation()
+                else
+                    windower.add_to_chat(8,"----- QD element is now: "..tostring(RollTwo.current)) 
+                end
+			elseif commandArgs[2] == 'eleqddown' then
+				EleQDMode:cycleback()
+				if use_UI == true then                    
+                    validateTextInformation()
+                else
+                    windower.add_to_chat(8,"----- QD element is now: "..tostring(RollTwo.current)) 
                 end
             end
 		elseif commandArgs[1]:lower() == 'cast' then
-			if commandArgs[2] == 'gain' then
-				send_command('@input /ma "Gain-'..gainSpells.current..'"')
+			if commandArgs[2] == 'rollone' then
+				send_command('@input /ja "'..RollOne.current..'"')
+			elseif commandArgs[2] == 'rolltwo' then
+				send_command('@input /ja "'..RollTwo.current..'"')
+			elseif commandArgs[2] == 'eleqd' then
+				send_command('@input /ja "'..quickDraw[EleQDMode.current]..'" <t>')
 			end
         
         elseif commandArgs[1]:lower() == 'scholar' then
@@ -1012,7 +1068,7 @@ end
 function lockMainHand( meleeing )   
     
     if meleeing then
-        enable('main','sub','ranged','ammo')
+        enable('main','sub','ranged')
         if use_UI == true then
             validateTextInformation()
         else
@@ -1021,9 +1077,6 @@ function lockMainHand( meleeing )
         idle()
     else
         disable('main','sub','ranged')
-        if rangeWeapon.value ~= "" then
-            disable('ammo')
-        end
         if use_UI == true then
             validateTextInformation()
         else
@@ -1200,7 +1253,32 @@ if player and player.index and windower.ffxi.get_mob_by_index(player.index) then
             end
         end
     end)
-
+	
+	windower.raw_register_event('action',
+    function(act)
+        --check if you are a target of spell
+        local actionTargets = act.targets
+        playerId = windower.ffxi.get_player().id
+        isTarget = false
+        for _, target in ipairs(actionTargets) do
+            if playerId == target.id then
+                isTarget = true
+            end
+        end
+        if isTarget == true then
+            if act.category == 4 then
+                local param = act.param
+                if param == 845 and flurry ~= 2 then
+                    add_to_chat(122, 'Flurry Status: Flurry I')
+                    Buff['Flurry'] = 1
+                elseif param == 846 then
+                    add_to_chat(122, 'Flurry Status: Flurry II')
+                    Buff['Flurry'] = 2
+              end
+            end
+        end
+	end)
+		
     function movingCheck()
         pSpeed = (player.x+player.y) - (pX+pY)
         if pSpeed ~= 0.0 or pSpeed > 0.25 or pSpeed < 0.25 then

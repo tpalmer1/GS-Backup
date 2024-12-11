@@ -451,6 +451,7 @@ function get_spell_map(spell)
     return spell_maps[spell.name]
 end
 
+
 function precast(spell)
 	update_active_ja()
 	-- Auto use Echo Drops if you are trying to cast while silenced --    
@@ -934,7 +935,7 @@ windower.register_event('action', function(act)
     end
 end)
 
-windower.register_event('prerender', function()
+windower.raw_register_event('prerender', function()
     --Items we want to check every second
 
     if os.time() > time_start then

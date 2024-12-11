@@ -111,8 +111,12 @@ hud_font = 'Arial'
 	windower.send_command('bind ^end gs c hud keybinds')
 	windower.send_command('bind !end gs c hud lite')  
 
-	windower.send_command('bind ^f input /ja "Full Circle" <me>')
-	windower.send_command('bind ^n input /ja "Entrust" <me>')
+	windower.send_command('bind !f input /ja "Full Circle" <me>')
+	windower.send_command('bind !n input /ja "Entrust" <me>')
+	windower.send_command('bind !m input /ja "Radial Arcana" <me>')
+	windower.send_command('bind !b input /ja "Blaze of Glory" <me>')
+	windower.send_command('bind !e input /ja "Ecliptic Attrition" <me>')
+	windower.send_command('bind !d input /ja "Dematerialize" <me>')
 --[[
     This gets passed in when the Keybinds is turned on.
     Each one matches to a given variable within the text object
@@ -146,8 +150,12 @@ function user_unload()
     send_command('unbind !f12')
 	send_command('unbind !end')
 	
-	send_command('unbind ^f')
-	send_command('unbind ^n')
+	send_command('unbind !f')
+	send_command('unbind !n')
+	send_command('unbind !m')
+	send_command('unbind !b')
+	send_command('unbind !e')
+	send_command('unbind !d')
 end
 
 --------------------------------------------------------------------------------------------------------------
@@ -159,8 +167,8 @@ indicolure:set('Indi-Haste')    -- Indi Spell Default     (when you first load l
 validateTextInformation()
 
 -- Optional. Swap to your geo macro sheet / book
-set_macros(1,2) -- Sheet, Book 
-send_command('wait 6;input /lockstyleset 2')
+set_macros(1,5) -- Sheet, Book 
+send_command('wait 6;input /lockstyleset 5')
     
 -- Setup your Gear Sets below:
 function get_sets()
@@ -170,28 +178,28 @@ function get_sets()
 	
 	AF.Head = "Geomancy Galero +1"
 	AF.Body = "Geomancy Tunic +1"
-	AF.Hands = "Geomancy Mitaines +1"
+	AF.Hands = "Geomancy Mitaines +2"
 	AF.Legs = "Geomancy Pants +1"
 	AF.Feet = "Geomancy Sandals +1"
 	
 	RELIC.Head = "Bagua Galero +1"
 	RELIC.Body = "Bagua Tunic"
-	RELIC.Hands = "Bagua Mitaines"
-	RELIC.Legs = "Bagua Pants"
-	RELIC.Feet = "Bagua Sandals"
+	RELIC.Hands = "Bagua Mitaines +3"
+	RELIC.Legs = "Bagua Pants +3"
+	RELIC.Feet = "Bagua Sandals +2"
 	
-	EMPY.Head = "Azimuth Hood +2"
-	EMPY.Body = "Azimuth Coat +2"
-	EMPY.Hands = "Azimuth Gloves +2"
-	EMPY.Legs = "Azimuth Tights +2"
-	EMPY.Feet = "Azimuth Gaiters +2"
+	EMPY.Head = "Azimuth Hood +3"
+	EMPY.Body = "Azimuth Coat +3"
+	EMPY.Hands = "Azimuth Gloves +3"
+	EMPY.Legs = "Azimuth Tights +3"
+	EMPY.Feet = "Azimuth Gaiters +3"
 	
 	GEOCape = {}
 	
-	GEOCape.Idle = { name = "Nantosuelta's Cape"}
-	GEOCape.PetIdle = {}
-	GEOCape.Nuke = {}
-	GEOCape.FC = {}
+	GEOCape.Idle = {}
+	GEOCape.PetIdle = { name="Nantosuelta's Cape", augments={'VIT+20','Eva.+20 /Mag. Eva.+20','Pet: "Regen"+10','Pet: "Regen"+5',}}
+	GEOCape.Nuke = { name="Nantosuelta's Cape", augments={'INT+20','Mag. Acc+20 /Mag. Dmg.+20','"Mag.Atk.Bns."+10','Damage taken-5%',}}
+	GEOCape.FC = { name="Nantosuelta's Cape", augments={'MND+20','Mag. Acc+20 /Mag. Dmg.+20','MND+10','"Fast Cast"+10',}}
 	
     -- My formatting is very easy to follow. All sets that pertain to my character doing things are under 'me'.
     -- All sets that are equipped to faciliate my.pan's behaviour or abilities are under .pan', eg, Perpetuation, Blood Pacts, etc
@@ -207,7 +215,7 @@ function get_sets()
     -- Your idle set when you DON'T have a luopan out
     sets.me.idle.normal = {
 		main = "Daybreak",
-		sub = "Culminus",
+		sub = "Genmei Shield",
 		range = "Dunna",
 		neck = "Sibyl Scarf",
 		head = "Befouled Crown",
@@ -216,11 +224,11 @@ function get_sets()
 		legs = EMPY.Legs,
 		feet = EMPY.Feet,
 		left_ear = "Eabani Earring",
-		right_ear = "Odnowa Earring +1",
-		left_ring = "Defending Ring",
-		right_ring = "Gelatinous Ring +1",
-		waist = "Slipor Sash",
-		back = GEOCape.Idle,
+		right_ear	=	"Arete del Luna +1",
+		left_ring = "Shneddick Ring +1",
+		right_ring	=	"Shadow Ring",
+		waist = "Carrier's Sash",
+		back = GEOCape.PetIdle,
 
     }
 	
@@ -229,11 +237,11 @@ function get_sets()
 	
     -- Your idle MasterDT set (Notice the sets.me, means no Luopan is out)
     sets.me.idle.dt = set_combine(sets.me.idle.normal,{
-			main = "Malignance Pole",
-			sub = "Enki Strap",
-			body = "Mallquis Saio +2",
-			hands = AF.Hands,
-			feet = "Mallquis Clogs +2"
+			head = "Nyame Helm",
+			body = "Nyame Mail",
+			hands = "Nyame Gauntlets",
+			legs = "Nyame Flanchard",
+			feet = "Nyame Sollerets"
 
     })
     sets.me.idle.mdt = set_combine(sets.me.idle.normal,{
@@ -254,25 +262,27 @@ function get_sets()
     -- Luopan's Out --  notice sets.pan 
     -- This is the base for all perpetuation scenarios, as seen below
     sets.pan.idle.normal = {
-		main = "Solstice",
-		sub = "Culminus",
+		main = "Idris",
+		sub = "Genmei Shield",
 		range = "Dunna",
 		head = EMPY.Head,
-		body = "Mallquis Saio +2",
+		body = "Nyame Mail",
+		neck = "Loricate Torque +1",
 		hands = AF.Hands,
-		neck = "Elite Royal Collar",
+		legs = EMPY.Legs,
 		feet = RELIC.Feet,
 		left_ear = "Eabani Earring",
-		ring_ear = "Odnowa Earring +1",
+		right_ear = "Odnowa Earring +1",
 		left_ring = "Defending Ring",
-		right_ring = "Gelatinous Ring +1",
-		waist = "Slipor Sash",
+		right_ring = "Shadow Ring",
+		waist = "Isa Belt",
 		back = GEOCape.PetIdle,
 
     }
 	
 	-- This is when you have a Luopan out but want to sacrifice some slot for master DT, put those slots in.
     sets.pan.idle.dt = set_combine(sets.pan.idle.normal,{
+			legs = "Nyame Flanchard"
 
     })   
     sets.pan.idle.mdt = set_combine(sets.pan.idle.normal,{
@@ -285,14 +295,14 @@ function get_sets()
 	-- No Luopan out
 	-- they end in [idleMode] so it will derive from either the normal or the dt set depending in which mode you are then add the pieces filled in below.
     sets.me.melee = set_combine(sets.me.idle[idleMode],{
-		head = "Jhakri Coronal +2",
-		body = "Jhakri Robe +2",
-		hands = "Jhakri Cuffs +2",
-		legs = "Jhakri Slops +2",
-		feet = "Jhakri Pigaches +2",
+		head = "Nyame Helm",
+		body = "Nyame Mail",
+		hands = "Nyame Gauntlets",
+		legs = "Nyame Flanchard",
+		feet = "Nyame Sollerets",
 		neck = "Lissome Necklace",
 		waist = "Goading Belt",
-		left_ear = "Suppanomimi",
+		left_ear = "Telos Earring",
 		right_ear = "Brutal Earring",
 		left_ring = "Rajas Ring",
 		right_ring = "Petrov Ring"
@@ -300,51 +310,119 @@ function get_sets()
 	
     -- Luopan is out
 	sets.pan.melee = set_combine(sets.pan.idle[idleMode],{
+		head = "Nyame Helm",
+		body = "Nyame Mail",
+		hands = "Nyame Gauntlets",
+		legs = "Nyame Flanchard",
+		feet = "Nyame Sollerets",
+		neck = "Lissome Necklace",
+		waist = "Goading Belt",
+		left_ear = "Telos Earring",
+		right_ear = "Brutal Earring",
+		left_ring = "Rajas Ring",
+		right_ring = "Petrov Ring"
 
     }) 
     
     -- Weapon Skill sets
 	-- Example:
 	sets.me["Hexa Strike"] = {
+		head = "Nyame Helm",
+		body = "Nyame Mail",
+		hands = "Nyame Gauntlets",
+		legs = "Nyame Flanchard",
+		feet = "Nyame Sollerets",
 		neck = "Fotia Gorget",
 		waist = "Fotia Belt"
 	}
 	sets.me["Judgment"] = {
+		ammo = "Oshasha's Treatise",
+		head = "Nyame Helm",
+		body = "Nyame Mail",
+		hands = "Nyame Gauntlets",
+		legs = "Nyame Flanchard",
+		feet = "Nyame Sollerets",
 		neck = "Rep. Plat. Medal",
+		left_earring = "Moonshade Earring",
+		right_earring = "Brutal Earring",
 		
-		left_ear = "Moonshade Earring"
-		
+		left_ring = "Rufescent Ring",
+		right_ring = "Cornelia's Ring",
 	}
 	
     sets.me["Flash Nova"] = {
-
+		head = "Nyame Helm",
+		body = "Nyame Mail",
+		hands = "Nyame Gauntlets",
+		legs = "Nyame Flanchard",
+		feet = "Nyame Sollerets",
+		left_ring = "Weather. Ring +1",
+		right_ring = "Cornelia's Ring",
     }
 	
+	sets.me["Seraph Strike"] = sets.me["Flash Nova"]
+	
 	sets.me["Black Halo"] = {
-		hands = "Jhakri Cuffs +2",
-		left_earring = "Moonshade Earring",	
+		ammo = "Oshasha's Treatise",
+		head = "Nyame Helm",
+		body = "Nyame Mail",
+		hands = "Nyame Gauntlets",
+		legs = "Nyame Flanchard",
+		feet = "Nyame Sollerets",
+		neck = "Rep. Plat. Medal",
+		left_earring = "Moonshade Earring",
+		right_earring = "Brutal Earring",
+		
+		left_ring = "Rufescent Ring",
+		right_ring = "Cornelia's Ring",
+		
 	}
 
     sets.me["Realmrazer"] = {
+		head = "Nyame Helm",
+		body = "Nyame Mail",
+		hands = "Nyame Gauntlets",
+		legs = "Nyame Flanchard",
+		feet = "Nyame Sollerets",
 		neck = "Fotia Gorget",
 		waist = "Fotia Belt",
     }
 	
     sets.me["Exudation"] = {
+		ammo = "Oshasha's Treatise",
+		head = "Nyame Helm",
+		body = "Nyame Mail",
+		hands = "Nyame Gauntlets",
+		legs = "Nyame Flanchard",
+		feet = "Nyame Sollerets",
 		neck = "Sibyl Scarf",
 		waist = "Acuity Belt +1",
 		left_ear = "Malignance Earring",
-		right_ear = "", --Regal
-		left_ring = "Metamor. Ring +1"
+		right_ear = "Regal Earring",
+		left_ring = "Metamor. Ring +1",
+		right_ring = "Cornelia's Ring"
 
     }
 	
 	sets.me["Cataclysm"] = {
 		head = "Pixie Hairpin +1",
-		
-		left_ring = "Archon Ring"
+		body = EMPY.Body,
+		hands = EMPY.Hands,
+		legs = EMPY.Legs,
+		feet = EMPY.Feet,
+		neck = "Sibyl Scarf",
+		waist = "Eschan Stone",
+		left_ear = "Malignance Earring",
+		right_ear =	"Moonshade Earring",
+		left_ring = "Archon Ring",
+		right_ring = "Metamorph Ring +1"
 		
 	}
+	
+	sets.me["Aeolian Edge"] = set_combine(sets.me["Cataclysm"],{
+			head = EMPY.Head,
+			left_ring	=	""
+			})
     -- Feel free to add new weapon skills, make sure you spell it the same as in game.
   
     ---------------
@@ -431,8 +509,8 @@ function get_sets()
 	
 	-- For Geo spells /
     sets.midcast.geo = set_combine(sets.midcast.casting,{
-			main = "Solstice",
-			sub = "Culminus",
+			main = "Idris",
+			sub = "Genmei Shield",
 			range = "Dunna",
 			head = EMPY.Head,
 			body = RELIC.Body,
@@ -441,6 +519,7 @@ function get_sets()
 			feet = EMPY.Feet,
 			neck = "Incanter's Torque",
 			back = "Lifestream Cape",
+			right_ear = "Azimuth Earring"
 			
 
     })
@@ -449,7 +528,7 @@ function get_sets()
 
     })
 	sets.midcast.indi.entrust = set_combine(sets.midcast.indi,{
-			main = "Solstice"
+			main = "Gada"
     })
 
 	sets.midcast.Obi = {
@@ -467,6 +546,9 @@ function get_sets()
 		left_ear = "Malignance Earring",
 		right_ear = "Azimuth Earring",
 		waist = "Eschan Stone",
+		left_ring = "Freke Ring",
+		right_ring = "Metamor. Ring +1",
+		back = GEOCape.Nuke
 
 
     })
@@ -512,7 +594,7 @@ function get_sets()
     })
     sets.midcast.aquaveil = set_combine(sets.midcast.refresh, {
 		main = "Vadose Rod",
-		sub = "Culminus"
+		sub = "Ammurapi Shield"
 	})
 	
 	sets.midcast["Drain"] = set_combine(sets.midcast.IntEnfeebling, {
@@ -534,7 +616,14 @@ function get_sets()
     -- Cure Potency
     sets.midcast.cure.normal = set_combine(sets.midcast.casting,{
 			main = "Daybreak",
-			sub = "Culminus",
+			sub = "Ammurapi Shield",
+			head = "Vanya Hood",
+			body = "Vanya Robe",
+			hands = "Vanya Cuffs",
+			legs = "Vanya Slops",
+			feet = "Vanya Clogs",
+			left_ear = "Meili Earring",
+			right_ear = "Mendi. Earring",
 
     })
     sets.midcast.cure.weather = set_combine(sets.midcast.cure.normal,{
