@@ -23,7 +23,7 @@ lungeModes = M('normal','mb')
 -- Defaults are the first in each list
 
 mainWeapon = M('Trishula','Shining One','Naegling', 'Mafic Cudgel','Gozuki Mezuki')
-subWeapon = M('Utu Grip', 'Regis', 'Kraken Club')
+subWeapon = M('Utu Grip', 'Regis', 'Ternion Dagger +1')
 
 -- Setting this to true will stop the text spam, and instead display modes in a UI.
 -- Currently in construction.
@@ -91,7 +91,7 @@ include('DRG_Lib.lua')
 
 -- Optional. Swap to your sch macro sheet / book
 set_macros(1,1) -- Sheet, Book
-send_command('wait 6;input /lockstyleset 2')
+send_command('wait 6;input /lockstyleset 1')
 
 refreshType = idleModes[1] -- leave this as is     
 

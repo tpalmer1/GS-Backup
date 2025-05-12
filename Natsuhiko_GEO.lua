@@ -200,6 +200,7 @@ function get_sets()
 	GEOCape.PetIdle = { name="Nantosuelta's Cape", augments={'VIT+20','Eva.+20 /Mag. Eva.+20','Pet: "Regen"+10','Pet: "Regen"+5',}}
 	GEOCape.Nuke = { name="Nantosuelta's Cape", augments={'INT+20','Mag. Acc+20 /Mag. Dmg.+20','"Mag.Atk.Bns."+10','Damage taken-5%',}}
 	GEOCape.FC = { name="Nantosuelta's Cape", augments={'MND+20','Mag. Acc+20 /Mag. Dmg.+20','MND+10','"Fast Cast"+10',}}
+	GEOCape.TPDA = { name="Nantosuelta's Cape", augments={'DEX+20','Accuracy+20 Attack+20','Accuracy+10','"Dbl.Atk."+10','Damage taken-5%',}}
 	
     -- My formatting is very easy to follow. All sets that pertain to my character doing things are under 'me'.
     -- All sets that are equipped to faciliate my.pan's behaviour or abilities are under .pan', eg, Perpetuation, Blood Pacts, etc
@@ -217,7 +218,7 @@ function get_sets()
 		main = "Daybreak",
 		sub = "Genmei Shield",
 		range = "Dunna",
-		neck = "Sibyl Scarf",
+		neck = "Rep. Plat. Medal",
 		head = "Befouled Crown",
 		body = EMPY.Body,
 		hands = RELIC.Hands,
@@ -297,30 +298,32 @@ function get_sets()
     sets.me.melee = set_combine(sets.me.idle[idleMode],{
 		head = "Nyame Helm",
 		body = "Nyame Mail",
-		hands = "Nyame Gauntlets",
+		hands = "Gazu Bracelets +1",
 		legs = "Nyame Flanchard",
 		feet = "Nyame Sollerets",
-		neck = "Lissome Necklace",
-		waist = "Goading Belt",
+		neck = "Null Loop",
+		waist = "Grunfeld Rope",
 		left_ear = "Telos Earring",
-		right_ear = "Brutal Earring",
-		left_ring = "Rajas Ring",
-		right_ring = "Petrov Ring"
+		right_ear = "Crep. Earring",
+		left_ring	=	{name="Chirich Ring +1",bag="wardrobe1"},
+        right_ring	=	{name="Chirich Ring +1",bag="wardrobe2"},
+        back = GEOCape.TPDA
     })
 	
     -- Luopan is out
 	sets.pan.melee = set_combine(sets.pan.idle[idleMode],{
 		head = "Nyame Helm",
 		body = "Nyame Mail",
-		hands = "Nyame Gauntlets",
+		hands = "Gazu Bracelets +1",
 		legs = "Nyame Flanchard",
 		feet = "Nyame Sollerets",
-		neck = "Lissome Necklace",
-		waist = "Goading Belt",
+		neck = "Null Loop",
+		waist = "Grunfeld Rope",
 		left_ear = "Telos Earring",
-		right_ear = "Brutal Earring",
-		left_ring = "Rajas Ring",
-		right_ring = "Petrov Ring"
+		right_ear = "Crep. Earring",
+		left_ring	=	{name="Chirich Ring +1",bag="wardrobe1"},
+        right_ring	=	{name="Chirich Ring +1",bag="wardrobe2"},
+        back = GEOCape.TPDA
 
     }) 
     
@@ -536,6 +539,8 @@ function get_sets()
 	}
 	-- Nuking
     sets.midcast.nuking.normal = set_combine(sets.midcast.casting,{
+		main = "Bunzi's Rod",
+		sub = "Ammurapi Shield",
 		ammo = "Ghastly Tathlum +1",
 		head = EMPY.Head,
 		body = EMPY.Body,
@@ -611,6 +616,8 @@ function get_sets()
 	})
 
 	sets.midcast["Aspir"] = sets.midcast["Drain"]
+	
+	sets.midcast["Absorb-TP"] = {}
      
     sets.midcast.cure = {} -- Leave This Empty
     -- Cure Potency

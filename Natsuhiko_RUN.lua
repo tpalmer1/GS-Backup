@@ -9,7 +9,7 @@ include('Modes.lua')
 -- Same idea for nuke modes. 
 idleModes = M('normal', 'dt', 'mdt')
 meleeModes = M('tank', 'dps', 'hybrid', 'acc')
-enmModes = M('normal','sir')
+castModes = M('normal','sird')
 lungeModes = M('normal','mb')
 
 ------------------------------------------------------------------------------------------------------
@@ -22,7 +22,7 @@ lungeModes = M('normal','mb')
 -- cast and we revert to idle or engaged sets, we'll be checking the following for weapon selection. 
 -- Defaults are the first in each list
 
-mainWeapon = M('Epeolatry','Lionheart','Aettir','Lycurgos','Naegling','Malignance Sword')
+mainWeapon = M('Epeolatry','Lionheart','Morgelai','Aettir','Lycurgos','Naegling','Malignance Sword','Dolichenus')
 subWeapon = M('Refined Grip +1','Utu Grip',"Chanter's Shield")
 
 -- Setting this to true will stop the text spam, and instead display modes in a UI.
@@ -45,13 +45,18 @@ hud_font = 'Arial'
     send_command('bind ^f11 gs c toggle subweapon')
 
 	send_command('bind f12 gs c toggle melee')
-	send_command('bind !f12 gs c toggle enmity')
+	send_command('bind end gs c toggle cast')
 	--send_command('bind !f12 gs c toggle runspeed')
 	send_command('bind pageup gs c toggle runeup')
 	send_command('bind pagedown gs c toggle runedown')
 
 	send_command('bind !e input /ja "Embolden" <me>; gs equip sets.midcast.phalanx; input /p Embolden: Please Phalanx!')
 	send_command('bind !b input /ja "Battuta" <me>')
+	send_command('bind !r gs c cast rune')
+	send_command('bind !~r input /ja "Rayke" <t>')
+	send_command('bind !v input /ja "Vallation" <me>')
+	send_command('bind !~v input /ja "Valiance" <me>')
+	send_command('bind !o input /ja "One for All" <me>')
 
 
 keybinds_on = {}
@@ -117,11 +122,11 @@ function get_sets()
     AF.Feet		=	"Runeist Bottes +2"
 
     --Vitiation
-    RELIC.Head		=	"Futhark Bandeau +2"
-    RELIC.Body		=	"Futhark Coat +1"
-    RELIC.Hands 	=	"Futhark Mitons +1"
-    RELIC.Legs		=	"Futhark Trousers +2"
-    RELIC.Feet		=	"Futhark Boots +1"
+    RELIC.Head		=	"Futhark Bandeau +3"
+    RELIC.Body		=	"Futhark Coat +3"
+    RELIC.Hands 	=	"Futhark Mitons +3"
+    RELIC.Legs		=	"Futhark Trousers +3"
+    RELIC.Feet		=	"Futhark Boots +3"
 
     --Lethargy
     EMPY.Head		=	"Erilaz Galea +2"
@@ -134,9 +139,10 @@ function get_sets()
     -- Ogma's and such, add your own.
 	RUNCape = {}
 	RUNCape.Parry = { name="Ogma's Cape", augments={'HP+60','Eva.+20 /Mag. Eva.+20','HP+20','Enmity+10','Parrying rate+5%',}}
-	RUNCape.DA = { name="Ogma's Cape", augments={'DEX+20','Accuracy+20 Attack+20','Accuracy+10','"Dbl.Atk."+10','Damage taken-5%',}}
+	RUNCape.TPDA = { name="Ogma's Cape", augments={'DEX+20','Accuracy+20 Attack+20','Accuracy+10','"Dbl.Atk."+10','Damage taken-5%',}}
 	--RUNCape.STP = { name="Ogma's Cape", augments={'DEX+20','Accuracy+20 Attack+20','"Store TP"+10',}}
-	RUNCape.Reso = { name="Ogma's Cape", augments={'STR+20','Accuracy+20 Attack+20','"Dbl.Atk."+10',}}
+	RUNCape.STRDA = { name="Ogma's Cape", augments={'STR+20','Accuracy+20 Attack+20','"Dbl.Atk."+10',}}
+	RUNCape.Sird = { name="Ogma's Cape", augments={'HP+60','Eva.+20 /Mag. Eva.+20','HP+20','Enmity+10','Spell interruption rate down-10%',}}
 	
 	-- SETS
     sets.me = {}        	-- leave this empty
@@ -152,11 +158,11 @@ function get_sets()
 	sets.me.idle.normal = {
 		ammo		=	"Homiliary",
 		head		=	"Rawhide Mask",
-		neck		=	"Sibyl Scarf",
+		neck		=	"Rep. Plat. Medal",
 		left_ear	=	"Tuisto Earring",
 		right_ear	=	"Odnowa Earring +1",
-		body		=	EMPY.Body,
-		hands		=	AF.Hands,
+		body		=	AF.Body,
+		hands		=	EMPY.Hands,
 		left_ring	=	"Shneddick Ring +1",
 		right_ring	=	"Moonbeam Ring",
 		waist		=	"Engraved Belt",
@@ -168,9 +174,11 @@ function get_sets()
 	sets.me.idle.dt = set_combine(sets.me.idle.refresh, {
 			ammo	=	"Eluder's Sachet",
 			head	=	"Nyame Helm",
-			neck	=	"Loricate Torque +1",
-			hands	=	"Turms Mittens",
+			body	=	EMPY.Body,
+			neck	=	"Null Loop",
+			hands	=	"Turms Mittens +1",
 			legs	=	EMPY.Legs,
+			lring	=	"Defending Ring"
 	})
 	
 	sets.me.idle.mdt = {}
@@ -180,7 +188,7 @@ function get_sets()
 	sets.me.melee.tank2hn = {
 		ammo		=	"Staunch Tathlum +1",
 		head		=	"Nyame Helm",
-		neck		=	"Loricate Torque +1",
+		neck		=	"Null Loop",
 		left_ear	=	"Tuisto Earring",
 		right_ear	=	"Odnowa Earring +1",
 		body		=	EMPY.Body,
@@ -203,15 +211,16 @@ function get_sets()
 		hands		=	"Adhemar Wristbands",
 		left_ring	=	"Epona's Ring",
 		right_ring	=	"Niqmaddu Ring",
-		waist		=	"Ioskeha Belt",
+		waist		=	"Ioskeha Belt +1",
 		legs		=	"Samnuha Tights",
-		back		=	RUNCape.DA,
+		back		=	RUNCape.TPDA,
 		feet		=	"Herculean Boots"
 	
 	}
 	
 	sets.me.melee.hybrid2hn = set_combine(sets.me.melee.dps2hn, {
 		head		=	"Nyame Helm",
+		neck		=	"Null Loop",
 		body		=	"Nyame Mail",
 		hands		=	"Nyame Gauntlets",
 		legs		=	"Nyame Flanchard",
@@ -249,7 +258,7 @@ function get_sets()
 		feet		=	"Nyame Sollerets",
 		lring		=	"Sroda Ring",
 		rring		=	"Niqmaddu Ring",
-		back		=	RUNCape.Reso
+		back		=	RUNCape.STRDA
 	}
 	
 	
@@ -294,9 +303,7 @@ function get_sets()
 	
 	
 	-- Feel free to add new weapon skills, make sure you spell it the same as in game. 
-	sets.me.enmity = {}
-	
-	sets.me.enmity.normal = {
+	sets.me.enmity = {
 		ammo		=	"Sapience Orb",
 		head		=	"Halitus Helm",
 		body		=	"Emet Harness +1",
@@ -304,19 +311,11 @@ function get_sets()
 		waist		=	"Kasiri Belt",
 		legs		=	EMPY.Legs,
 		feet		=	EMPY.Feet,
+		rear		=	"Cryptic Earring",
 		lring		=	"Supershear Ring",
-		rring		=	"Eiwaz Ring"
+		rring		=	"Eiwaz Ring",
+		back		=	RUNCape.Parry
 	}
-	
-	sets.me.enmity.sir = set_combine(sets.me.enmity.normal,{
-		ammo		=	"Staunch Tathlum +1", -- 11
-		head		=	EMPY.Head, -- 15
-		body		=	"Taeon Tabard", -- 10
-		hands		=	"Rawhide Gloves", -- 15
-		legs		=	Carmine.Legs.D, -- 20
-		waist		=	"Audumbla Sash", -- 10
-		rear		=	"Magnetic Earring", -- 8
-			}) -- 89 + 10 (merits) = 99
 	
     ---------------
     -- Casting Sets
@@ -373,23 +372,41 @@ function get_sets()
     -- Ability Precasting
     ---------------------
 	
-	sets.precast['Elemental Sforzo'] = {body=RELIC.Body}
+	sets.precast['Elemental Sforzo'] = set_combine(sets.me.enmity,{
+		body=RELIC.Body
+	})
 	
-	sets.precast['Swordplay'] = {hands=RELIC.Hands}
+	sets.precast['Swordplay'] = set_combine(sets.me.enmity,{
+		hands=RELIC.Hands
+	})
 	
-	sets.precast['Vallation'] = {}
+	sets.precast['Vallation'] = set_combine(sets.me.enmity,{
+		body=AF.Body
+	})
 	
 	sets.precast['Valiance'] = sets.precast['Vallation']
 	
-	sets.precast['Vivacious Pulse'] = {}
+	sets.precast['Vivacious Pulse'] = set_combine(sets.me.enmity,{
+		main="Morgelai",
+		head=EMPY.Head,
+		
+	})
 	
-	sets.precast['Gambit'] = {hands=AF.Hands}
+	sets.precast['Gambit'] = set_combine(sets.me.enmity,{
+		hands=AF.Hands
+	})
 	
-	sets.precast['Battuta'] = {head=RELIC.Head}
+	sets.precast['Battuta'] = set_combine(sets.me.enmity,{
+		head=RELIC.Head
+	})
 	
-	sets.precast['Rayke'] = {feet=RELIC.Feet}
+	sets.precast['Rayke'] = set_combine(sets.me.enmity,{
+		feet=RELIC.Feet
+	})
 	
-	sets.precast['Liement'] = {body=RELIC.Body}
+	sets.precast['Liement'] = set_combine(sets.me.enmity,{
+		body=RELIC.Body
+	})
 	
 	sets.precast['One for All'] = {
 		head		=	AF.Head,
@@ -445,12 +462,34 @@ function get_sets()
 		
 	}
 	
+	sets.midcast.divine ={}
+	-- Flash
+	sets.midcast.divine.recast = {}
+	
+	sets.midcast.sird	=	{
+		main = "Morgelai",
+		sub = "Utu Grip",
+		ammo = "Staunch Tathlum +1",
+		head = EMPY.Head,
+		body = "Adamantite Armor",
+		hands = "Rawhide Gloves",
+		legs = "Carmine Cuisses +1",
+		feet = EMPY.Feet,
+		lear = "Magnetic Earring",
+		rear = "Erilaz Earring +1",
+		lring = "Defending Ring",
+		rring = "Gelantinous Ring +1",
+		back = RUNCape.Sird,
+	}
+	
+	
+	
 	sets.midcast.phalanx = {
 		head		=	RELIC.Head,
 		body		=	"Herculean Vest",
 		legs		=	"Herculean Trousers"
 	}
-	
+		
 	sets.midcast.stoneskin = {}
 	
 	sets.midcast.refresh = {
@@ -471,8 +510,7 @@ function get_sets()
 	sets.midcast.blue.nuke.mb ={}
 	sets.midcast.blue.heal = {}
 	sets.midcast.blue.heal.me = {}
-	sets.midcast.blue.enm.normal = set_combine(sets.me.enmity.normal,{})
-	sets.midcast.blue.enm.sir = set_combine(sets.me.enmity.sir,{})
+	sets.midcast.blue.enm = {}
 	
 	------------
     -- Aftercast

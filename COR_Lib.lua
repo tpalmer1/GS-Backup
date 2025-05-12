@@ -198,7 +198,7 @@ hub_battle_std = [[ \cs(255, 115, 0)Battle: \cr
 --hub_mode_lte = [[ \cs(255, 115, 0) == Modes: \cr              \cs(255, 255, 64)${key_bind_idle} \cs(200, 200, 200)Idle:\cr \cs(125,125,255)${player_current_idle|Refresh}              \cs(255, 255, 64)${key_bind_melee} \cs(200, 200, 200)Melee:\cr \cs(125,125,255)${player_current_melee|Refresh}              \cs(255, 255, 64)${key_bind_mainweapon} \cs(200, 200, 200)Main / Sub Weapon:\cr \cs(125,125,255)${player_current_mainweapon|Crocea Mors} / ${player_current_subweapon|Ammurapi Shield}            \cs(255, 255, 64)${key_bind_rangeweapon} \cs(200, 200, 200)Range Weapon:\cr \cs(125,125,255)${player_current_range|None}         \cs(255, 255, 64)${key_bind_casting} \cs(200, 200, 200)Nuking:\cr \cs(125,125,255)${player_current_casting|Normal} ]]
 hub_mode_lte = [[ \cs(255, 115, 0) == Modes: \cr              \cs(255, 255, 64)${key_bind_idle} \cs(200, 200, 200)Idle:\cr \cs(125,125,255)${player_current_idle|Refresh}              \cs(255, 255, 64)${key_bind_melee} \cs(200, 200, 200)Melee:\cr \cs(125,125,255)${player_current_melee|Normal}              \cs(255, 255, 64)${key_bind_ranged} \cs(200, 200, 200)Ranged:\cr \cs(125,125,255)${player_current_ranged|Normal}              \cs(255, 255, 64)${key_bind_mainweapon} \cs(200, 200, 200)Main / Sub Weapon:\cr \cs(125,125,255)${player_current_mainweapon|Crocea Mors} / ${player_current_subweapon|Ammurapi Shield}            \cs(255, 255, 64)${key_bind_rangeweapon} \cs(200, 200, 200)Range Weapon:\cr \cs(125,125,255)${player_current_range|None} ]]
 
-hub_options_lte = [[ \cs(255, 115, 0)== Options: \cr             \cs(255, 255, 64)${key_bind_lock_weapon} \cs(200, 200, 200)Lock Weapon:\cr ${toggle_lock_weapon}            \cs(255, 255, 64)${key_bind_movespeed_lock}\cs(200, 200, 200)Carm Cuisses:\cr ${toggle_movespeed_lock} ]]
+hub_options_lte = [[ \cs(255, 115, 0)== Options: \cr             \cs(255, 255, 64)${key_bind_lock_weapon} \cs(200, 200, 200)Lock Weapon:\cr ${toggle_lock_weapon}            \cs(255, 255, 64)${key_bind_movespeed_lock}\cs(200, 200, 200)Carm. Cuisses:\cr ${toggle_movespeed_lock} ]]
 
 hub_job_lte = [[ \cs(255, 115, 0) == ${player_job}: \cr             \cs(255, 255, 64)${key_bind_rollone_cycle} \cs(200, 200, 200)Roll One:\cr ${toggle_rollone_cycle}             \cs(255, 255, 64)${key_bind_rolltwo_cycle} \cs(200, 200, 200)Roll Two:\cr ${toggle_rolltwo_cycle} ]]
 --hub_job_lte = [[ \cs(255, 115, 0) == ${player_job}: \cr             \cs(255, 255, 64)${key_bind_element_cycle} \cs(200, 200, 200)Nuking:\cr ${element_color|\\cs(0, 204, 204)}${toggle_element_cycle|Ice} \cr             \cs(255, 255, 64)${key_bind_enspell_cycle} \cs(200, 200, 200)Enspell:\cr ${enspell_color|\\cs(0, 204, 204)}${toggle_enspell_cycle|Ice} \cr             \cs(255, 255, 64)${key_bind_gain_cycle} \cs(200, 200, 200)Gain:\cr ${gain_color|\\cs(0, 204, 204)}${toggle_gain_cycle|Ice} \cr]]
@@ -549,7 +549,7 @@ function buff_refresh(name,buff_details)
 end
 
 function sub_job_change(new,old)
-	send_command('wait 2;input /lockstyleset 6')
+	send_command('wait 2;input /lockstyleset 2')
 end
 
 
@@ -793,7 +793,7 @@ end
 function idle()
     -- This function is called after every action, and handles which set to equip depending on what we're doing
     -- We check if we're meleeing because we don't want to idle in melee gear when we're only engaged for trusts
-    if player.status=='Engaged' then
+    if player.status =='Engaged' then
         if subWeapon.current:match('Shield') or subWeapon.current:match('Bulwark') or subWeapon.current:match('Buckler') then
             equip(sets.me.melee[meleeModes.value..'sw'])
         else
@@ -806,7 +806,14 @@ function idle()
             equip(sets.me.latent_refresh)          
         end       
     end
-    equip({main = mainWeapon.current, sub = subWeapon.current, range = rangeWeapon.current})
+    
+    if mainWeapon.current == 'RostamA' then
+		equip({main = { name="Rostam", augments={'Path: A',}}, sub = subWeapon.current, range = rangeWeapon.current})
+	elseif mainWeapon.current == 'RostamB' then
+		equip({main = { name="Rostam", augments={'Path: B',}}, sub = subWeapon.current, range = rangeWeapon.current})
+    else
+		equip({main = mainWeapon.current, sub = subWeapon.current, range = rangeWeapon.current})
+	end
 end
  
 function EnspellCheck()

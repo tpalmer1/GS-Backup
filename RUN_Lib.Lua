@@ -162,8 +162,9 @@ hud_transparency_og = hud_transparency
 hub_mode_std = [[\cs(255, 115, 0)Modes: \cr              
 \cs(255, 255, 64)${key_bind_idle} \cs(200, 200, 200)Idle:\cr \cs(125,125,255)${player_current_idle|Refresh}
 \cs(255, 255, 64)${key_bind_melee} \cs(200, 200, 200)Melee:\cr \cs(125,125,255)${player_current_melee|Refresh}
-\cs(255, 255, 64)${key_bind_mainweapon} \cs(200, 200, 200)Main Weapon:\cr \cs(125,125,255)${player_current_mainweapon|Crocea Mors}
-\cs(255, 255, 64)${key_bind_subweapon} \cs(200, 200, 200)Sub Weapon:\cr \cs(125,125,255)${player_current_subweapon|Ammurapi Shield}
+\cs(255, 255, 64)${key_bind_mainweapon} \cs(200, 200, 200)Main Weapon:\cr \cs(125,125,255)${player_current_mainweapon|Epeolatry}
+\cs(255, 255, 64)${key_bind_subweapon} \cs(200, 200, 200)Sub Weapon:\cr \cs(125,125,255)${player_current_subweapon|Utu Grip}
+\cs(255, 255, 64)${key_bind_cast}\cs(200, 200, 200)Cast:\cr \cs(125,125,255)${toggle_cast_cycle|Normal}
 ]]
 
 hub_options_std = [[ \cs(255, 115, 0)Options: \cr         
@@ -172,23 +173,22 @@ hub_options_std = [[ \cs(255, 115, 0)Options: \cr
 ]]
 
 hub_job_std = [[ \cs(255, 115, 0)${player_job}: \cr             
-\cs(255, 255, 64)${key_bind_rune} \cs(200, 200, 200)Rune:\cr ${rune_color|\\cs(0, 204, 204)}${toggle_rune_cycle|Ice}
-\cs(255, 255, 64)${key_bind_enm} \cs(200, 200, 200)Enmity:\cr ${toggle_enm_cycle|Normal}
+\cs(255, 255, 64)${key_bind_rune} \cs(200, 200, 200)Rune:\cr ${rune_color|\\cs(0, 204, 204)}${toggle_rune_cycle|Ice}	
 ]]
 
-hub_battle_std = [[ \cs(255, 115, 0)Battle: \cr
-\cs(255,255,64)${key_bind_death} \cs(200, 200, 200)Death Resist:\cr ${death_resist|OFF} 
+hub_battle_std = [[ \cs(255, 115, 0)Battle: \cr	
+
 	]]
 
 -- LITE Mode
-hub_mode_lte = [[ \cs(255, 115, 0) == Modes: \cr              \cs(255, 255, 64)${key_bind_idle} \cs(200, 200, 200)Idle:\cr \cs(125,125,255)${player_current_idle|Refresh}              \cs(255, 255, 64)${key_bind_melee} \cs(200, 200, 200)Melee:\cr \cs(125,125,255)${player_current_melee|Refresh}              \cs(255, 255, 64)${key_bind_mainweapon} \cs(200, 200, 200)Main / Sub Weapon:\cr \cs(125,125,255)${player_current_mainweapon|Crocea Mors} / ${player_current_subweapon|Ammurapi Shield}]]
+hub_mode_lte = [[ \cs(255, 115, 0) == Modes: \cr              \cs(255, 255, 64)${key_bind_idle} \cs(200, 200, 200)Idle:\cr \cs(125,125,255)${player_current_idle|Refresh}              \cs(255, 255, 64)${key_bind_melee} \cs(200, 200, 200)Melee:\cr \cs(125,125,255)${player_current_melee|Refresh}              \cs(255, 255, 64)${key_bind_mainweapon} \cs(200, 200, 200)Main / Sub Weapon:\cr \cs(125,125,255)${player_current_mainweapon|Epeolatry} / ${player_current_subweapon|Utu Grip}	\cs(255, 255, 64)${key_bind_cast} \cs(200, 200, 200)Cast:\cr \cs(125,125,255)${toggle_cast_cycle|Normal} ]]
 
 
-hub_options_lte = [[ \cs(255, 115, 0)== Options: \cr              \cs(255, 255, 64)${key_bind_lock_weapon} \cs(200, 200, 200)Lock Weapon:\cr ${toggle_lock_weapon}            \cs(255, 255, 64)${key_bind_movespeed_lock}\cs(200, 200, 200)Carm Cuisse:\cr ${toggle_movespeed_lock} ]]
+hub_options_lte = [[ \cs(255, 115, 0)== Options: \cr              \cs(255, 255, 64)${key_bind_lock_weapon} \cs(200, 200, 200)Lock Weapon:\cr ${toggle_lock_weapon}            \cs(255, 255, 64)${key_bind_movespeed_lock}\cs(200, 200, 200)Carm. Cuisses:\cr ${toggle_movespeed_lock} ]]
 
-hub_job_lte = [[ \cs(255, 115, 0) == ${player_job}: \cr             \cs(255, 255, 64)${key_bind_rune} \cs(200, 200, 200)Rune:\cr ${rune_color|\\cs(0, 204, 204)}${toggle_rune_cycle|Ice}             \cs(255, 255, 64)${key_bind_enm} \cs(200, 200, 200)Enmity:\cr ${toggle_enm_cycle|Normal} ]]
+hub_job_lte = [[ \cs(255, 115, 0) == ${player_job}: \cr             \cs(255, 255, 64)${key_bind_rune} \cs(200, 200, 200)Rune:\cr ${rune_color|\\cs(0, 204, 204)}${toggle_rune_cycle|Ice}]]
 
-hub_battle_lte = [[ \cs(255, 115, 0) == Battle: \cr             \cs(255,255,64)${key_bind_death}\cs(200, 200, 200)Death Resist:\cr ${death_resist|OFF}  ]]
+hub_battle_lte = [[ \cs(255, 115, 0) == Battle: \cr]]
 
 
 -- init style
@@ -210,8 +210,7 @@ keybinds_off['key_bind_subweapon'] = '       '
 keybinds_off['key_bind_lock_weapon'] = '       '
 keybinds_off['key_bind_movespeed_lock'] = '        '
 keybinds_off['key_bind_rune'] = '        '
-keybinds_off['key_bind_enm'] = '        '
-keybinds_off['key_bind_death'] = '        '
+keybinds_off['key_bind_cast'] = '        '
 
 function validateTextInformation()
 
@@ -232,12 +231,6 @@ function validateTextInformation()
     else
         main_text_hub.toggle_movespeed_lock =  const_off
     end
-	
-	if deathresist.value then
-		main_text_hub.death_resist = const_on
-	else
-		main_text_hub.death_resist = const_off
-	end
     
     if keybinds.value then
         texts.update(main_text_hub, keybinds_on)
@@ -246,7 +239,7 @@ function validateTextInformation()
     end
 	main_text_hub.rune_color = Colors[runeElements.current]
 	main_text_hub.toggle_rune_cycle = runeElements.current
-	main_text_hub.toggle_enm_cycle = enmModes.current
+	main_text_hub.toggle_cast_cycle = castModes.current
 
 end
 
@@ -582,7 +575,7 @@ function midcast(spell)
         end
 	elseif spell.skill == 'Divine Magic' then
 		if spell.name:match('Flash') then
-			equip(sets.me.enmity[enmModes.current])
+			equip(sets.midcast.divine.recast)
 		end
 	-- Blue Magic
 	elseif spell.type == 'BlueMagic' then
@@ -594,7 +587,7 @@ function midcast(spell)
 		elseif blueMap == 'heal' and spell.target.type == "SELF" then
 			equip(sets.midcast.blue.heal.me)
 		elseif blueMap == 'enm' then
-			equip(sets.midcast.blue.enm[enmModes.current])
+			equip(sets.midcast.blue.enm)
 		else
 			equip(sets.midcast.blue[blueMap])
 		end
@@ -609,6 +602,17 @@ function midcast(spell)
     elseif sets.midcast[spellMap] then
         equip(sets.midcast[spellMap])
     end
+    
+    --SIRD
+    if castModes.current == 'sird' then
+		if sets.midcast[spell.name] then
+			equip(sets.midcast[spell.name][sird])
+		elseif sets.midcast[spellMap] then
+			equip(sets.midcast[spellMap][sird])
+		else
+			equip(sets.midcast.sird)
+		end
+	end
     -- Weapon skills
     -- sets.me["Insert Weaponskill"] are basically how I define any non-magic spells sets, aka, WS, JA, Idles, etc.
     if sets.me[spell.name] then
@@ -735,12 +739,12 @@ function self_command(command)
                     else
                         windower.add_to_chat(4,"----- Runes set to: "..tostring(runeElements.value))
                     end
-			elseif commandArgs[2] == 'enmity' then
-				enmModes:cycle()
+			elseif commandArgs[2] == 'cast' then
+				castModes:cycle()
 				if use_UI == true then
                         validateTextInformation()
                     else
-                        windower.add_to_chat(4,"----- Enmity set to: "..tostring(enmModes.value))
+                        windower.add_to_chat(4,"----- Casting set to: "..tostring(enmModes.value))
                     end
 			end
 		elseif commandArgs[1]:lower() == 'cast' then

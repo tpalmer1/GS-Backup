@@ -83,7 +83,7 @@ EleQDMode = M('Ice', 'Air', 'Earth', 'Lightning', 'Water', 'Fire')
 -- cast and we revert to idle or engaged sets, we'll be checking the following for weapon selection. 
 -- Defaults are the first in each list
 
-mainWeapon = M('Lanun Knife','Kustawi +1','Naegling')
+mainWeapon = M('RostamA','RostamB','Kustawi +1','Naegling')
 subWeapon = M('Nusku Shield','Tauret', 'Kustawi +1','Gleti\'s Knife')
 
 rangeWeapon = M('Ataktos','Fomalhaut','Armageddon')
@@ -222,25 +222,25 @@ function get_sets()
 
 	-- Fill this with your own JSE. 
     --Atrophy
-    AF.Head		=	"Laksa. Tricorne +2"
-    AF.Body		=	"Laksa. Frac +2"
+    AF.Head		=	"Laksa. Tricorne +3"
+    AF.Body		=	"Laksa. Frac +3"
     AF.Hands	=	"Laksa. Gants +2"
     AF.Legs		=	"Laksa. Trews +2"
-    AF.Feet		=	"Laksa. Bottes +2"
+    AF.Feet		=	"Laksa. Bottes +3"
 
     --Vitiation
-    RELIC.Head		=	"Lanun Tricorne +1"
+    RELIC.Head		=	"Lanun Tricorne +3"
     RELIC.Body		=	"Lanun Frac +3"
     RELIC.Hands 	=	"Lanun Gants +3"
-    RELIC.Legs		=	"Lanun Trews +1"
+    RELIC.Legs		=	"Lanun Trews +3"
     RELIC.Feet		=	"Lanun Bottes +3"
 
     --Lethargy
     EMPY.Head		=	"Chass. Tricorne +3"
     EMPY.Body		=	"Chasseur's Frac +3"
     EMPY.Hands		=	"Chasseur's Gants +3"
-    EMPY.Legs		=	"Chas. Culottes +2"
-    EMPY.Feet		=	"Chass. Bottes +2"
+    EMPY.Legs		=	"Chas. Culottes +3"
+    EMPY.Feet		=	"Chass. Bottes +3"
 
     -- Capes:
     -- Camulus's And such, add your own.
@@ -270,7 +270,7 @@ function get_sets()
 		body = EMPY.Body,
 		lear = "Eabani Earring",
 		rear = "Arete del Luna +1",
-		neck = "Loricate Torque +1",
+		neck = "Rep. Plat. Medal",
 		hands = "Malignance Gloves",
 		waist = "Carrier's Sash",
 		legs = "Malignance Tights",
@@ -305,7 +305,7 @@ function get_sets()
 		hands = "Malignance Gloves",
 		legs = "Samnuha Tights",
 		feet = "Malignance Boots",
-		neck = "Combatant's Torque",
+		neck = "Null Loop",
 		lring = "Epona's Ring",
 		rring = "Petrov Ring",
 		waist = "Windbuffet Belt +1",
@@ -317,7 +317,6 @@ function get_sets()
     sets.me.melee.accdw = set_combine(sets.me.melee.normaldw,{
     })
     sets.me.melee.hybriddw = set_combine(sets.me.melee.normaldw,{
-			neck = "Combatant's Torque",
 			head = "Malignance Chapeau",
 			body = "Malignance Tabard",
 			hands = "Malignance Gloves",
@@ -328,7 +327,8 @@ function get_sets()
 	-- Single Wield sets. -- combines from DW sets
 	-- So can just put what will be changing when off hand is a shield
  	------------------------------------------------------------------------------------------------------   
-    sets.me.melee.normalsw = set_combine(sets.me.melee.normaldw,{   
+    sets.me.melee.normalsw = set_combine(sets.me.melee.normaldw,{
+		back = "Null Shawl"
     })
     sets.me.melee.accsw = set_combine(sets.me.melee.accdw,{
 
@@ -388,7 +388,7 @@ function get_sets()
 	
     -- Ranged
 	sets.me["Leaden Salute"] = {
-		ammo = "Chrono Bullet",
+		ammo = "Devastating Bullet",
 		head = "Pixie Hairpin +1",
 		body = RELIC.Body,
 		hands = "Nyame Gauntlets",
@@ -404,7 +404,7 @@ function get_sets()
 	}
 	
 	sets.me["Wildfire"] = set_combine(sets.me["Leaden Salute"],{
-		ammo = "Chrono Bullet",
+		ammo = "Devastating Bullet",
 		head = "Nyame Helm",
 		lear = "Crematio Earring",		
 	})
@@ -412,7 +412,7 @@ function get_sets()
 	sets.me["Last Stand"] = {
 			ammo = "Chrono Bullet",
 			head = "Nyame Helm",
-			body = "Malignance Tabard",
+			body = "Ikenga's Vest",
 			hands = EMPY.Hands,
 			legs = "Malignance Tights",
 			feet = RELIC.Feet,
@@ -426,7 +426,7 @@ function get_sets()
 	}
 
 	sets.me["Hot Shot"] = set_combine(sets.me["Leaden Salute"],{
-			ammo = "Chrono Bullet",
+			ammo = "Devastating Bullet",
 			head = "Nyame Helm",
 			body = "Nyame Mail",
 			neck = "Fotia Gorget",
@@ -451,6 +451,8 @@ function get_sets()
     ----------
      
 	sets.precast.roll = set_combine(sets.me.idle.normal,{
+		main = { name="Rostam", augments={'Path: C',}},
+		sub = 'Nusku Shield',
 		range = "Compensator",
 		head = RELIC.Head,
 		hands = EMPY.Hands,
@@ -633,6 +635,7 @@ function get_sets()
 	sets.midcast.ra = {} -- Leave this empty
 	sets.precast.ra.normal = {
 		head = EMPY.Head,
+		body = "Oshosi Vest +1",
 		hands = "Carmine Fin. Ga. +1",
 		legs = "Adhemar Kecks +1",
 		feet = "Meg. Jam. +2",
@@ -641,6 +644,7 @@ function get_sets()
 		back = CORCape.Idle
 	}
 	sets.precast.ra.flurry = set_combine(sets.precast.ra.normal, {
+		body = AF.Body,
 		waist = "Yemaya Belt"
 	})
 	sets.precast.ra.flurry2 = set_combine(sets.precast.ra.flurry, {

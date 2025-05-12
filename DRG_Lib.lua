@@ -108,7 +108,7 @@ blue_maps = {
 	
 }
 
--- Set Macros for your PLD's macro page, book.
+-- Set Macros for your DRG's macro page, book.
 function set_macros(sheet,book)
     if book then 
         send_command('@input /macro book '..tostring(book)..';wait .1;input /macro set '..tostring(sheet))
@@ -460,7 +460,7 @@ function buff_refresh(name,buff_details)
 end
 
 function sub_job_change(new,old)
-	send_command('wait 2;input /lockstyleset 2')
+	send_command('wait 2;input /lockstyleset 1')
 end
 
 

@@ -78,7 +78,7 @@ enfeeb_maps = {
     ['Paralyze']='mndpot', ['Paralyze II']='mndpot', 
     ['Slow']='mndpot', ['Slow II']='mndpot', 
     ['Addle']='mndpot', ['Addle II']='mndpot',
-    ['Sleep']='macc', ['Sleep II']='macc', ['Sleepga']='macc', 
+    ['Sleep']='macc', ['Sleep II']='macc', ['Sleepga']='macc', ['Sleepga II']='macc',
     ['Silence']='macc', 
     ['Inundation']='macc', 
     ['Dispel']='macc', 
@@ -194,7 +194,7 @@ hub_battle_std = [[ \cs(255, 115, 0)Battle: \cr
 hub_mode_lte = [[ \cs(255, 115, 0) == Modes: \cr              \cs(255, 255, 64)${key_bind_idle} \cs(200, 200, 200)Idle:\cr \cs(125,125,255)${player_current_idle|Refresh}              \cs(255, 255, 64)${key_bind_melee} \cs(200, 200, 200)Melee:\cr \cs(125,125,255)${player_current_melee|Refresh}              \cs(255, 255, 64)${key_bind_mainweapon} \cs(200, 200, 200)Main / Sub Weapon:\cr \cs(125,125,255)${player_current_mainweapon|Crocea Mors} / ${player_current_subweapon|Ammurapi Shield}            \cs(255, 255, 64)${key_bind_rangeweapon} \cs(200, 200, 200)Range Weapon:\cr \cs(125,125,255)${player_current_range|None}         \cs(255, 255, 64)${key_bind_casting} \cs(200, 200, 200)Nuking:\cr \cs(125,125,255)${player_current_casting|Normal} ]]
 
 
-hub_options_lte = [[ \cs(255, 115, 0)== Options: \cr              \cs(255, 255, 64)${key_bind_matchsc}\cs(200, 200, 200)Match SC Element:\cr ${player_match_sc}            \cs(255, 255, 64)${key_bind_lock_weapon} \cs(200, 200, 200)Lock Weapon:\cr ${toggle_lock_weapon}            \cs(255, 255, 64)${key_bind_movespeed_lock}\cs(200, 200, 200)Carm Cuisse:\cr ${toggle_movespeed_lock} ]]
+hub_options_lte = [[ \cs(255, 115, 0)== Options: \cr              \cs(255, 255, 64)${key_bind_matchsc}\cs(200, 200, 200)Match SC Element:\cr ${player_match_sc}            \cs(255, 255, 64)${key_bind_lock_weapon} \cs(200, 200, 200)Lock Weapon:\cr ${toggle_lock_weapon}            \cs(255, 255, 64)${key_bind_movespeed_lock}\cs(200, 200, 200)Carm. Cuisses:\cr ${toggle_movespeed_lock} ]]
 
 hub_job_lte = [[ \cs(255, 115, 0) == ${player_job}: \cr             \cs(255, 255, 64)${key_bind_element_cycle} \cs(200, 200, 200)Nuking:\cr ${element_color|\\cs(0, 204, 204)}${toggle_element_cycle|Ice} \cr             \cs(255, 255, 64)${key_bind_enspell_cycle} \cs(200, 200, 200)Enspell:\cr ${enspell_color|\\cs(0, 204, 204)}${toggle_enspell_cycle|Ice} \cr             \cs(255, 255, 64)${key_bind_gain_cycle} \cs(200, 200, 200)Gain:\cr ${gain_color|\\cs(0, 204, 204)}${toggle_gain_cycle|Ice} \cr]]
 
@@ -770,8 +770,8 @@ function idle()
         else
             equip(sets.me.melee[meleeModes.value..'dw'])
         end
-        if mainWeapon.current == "Crocea Mors" or "Vitiation Sword" then
-            --EnspellCheck()
+        if mainWeapon.current == "Crocea Mors" or  mainWeapon.current == "Vitiation Sword" then
+            EnspellCheck()
         end
     else
         equip(sets.me.idle[idleModes.value])
@@ -804,7 +804,6 @@ function status_change(new,old)
     if new == 'Engaged' then  
         -- If we engage check our meleeing status
         idle()
-         
     elseif new=='Resting' then
         -- We're resting
         equip(sets.me.resting)          
